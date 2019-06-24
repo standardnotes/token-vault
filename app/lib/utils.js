@@ -1,18 +1,19 @@
 export function hexToBytes(hex) {
-	var bytes = [];
-	for(var c = 0, C = hex.length; c < C; c += 2) {
-		bytes.push(parseInt(hex.substr(c, 2), 16));
-	}
-	return bytes;
+  var bytes = [];
+  for (var c = 0, C = hex.length; c < C; c += 2) {
+    bytes.push(parseInt(hex.substr(c, 2), 16));
+  }
+  return bytes;
 }
 
 export function decToHex(s) {
-  return (s < 15.5 ? "0" : "") + Math.round(s).toString(16);
+  return (s < 15.5 ? '0' : '') + Math.round(s).toString(16);
 }
 
-
 export function bufToHex(buf) {
-  return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
+  return Array.prototype.map
+    .call(new Uint8Array(buf), x => ('00' + x.toString(16)).slice(-2))
+    .join('');
 }
 
 export function hextoBuf(hex) {
@@ -27,13 +28,13 @@ export function hextoBuf(hex) {
 
 export function base32ToHex(base32) {
   var base32chars, bits, chunk, hex, i, val;
-  base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-  bits = "";
-  hex = "";
+  base32chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  bits = '';
+  hex = '';
   i = 0;
   while (i < base32.length) {
     val = base32chars.indexOf(base32.charAt(i).toUpperCase());
-    bits += leftpad(val.toString(2), 5, "0");
+    bits += leftpad(val.toString(2), 5, '0');
     i++;
   }
   i = 0;

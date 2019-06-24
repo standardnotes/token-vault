@@ -1,5 +1,6 @@
 import React from 'react';
-import { totp } from '../lib/otp'
+import AuthEntry from './AuthEntry';
+import update from 'immutability-helper';
 // import BridgeManager from '../lib/BridgeManager';
 
 const note = {
@@ -7,50 +8,100 @@ const note = {
     title: 'test title',
     text: 'test content'
   }
-}
+};
 
 export default class Home extends React.Component {
-
   constructor(props) {
     super(props);
 
-    this.state = { note, token: '' };
-    this.getToken('PBDS6TSGLFYXAOBQHBHXQRDBORNEKZCD')
+    let entries = [
+      {
+        service: 'a',
+        account: 'b',
+        secret: '1234567890123456'
+      }
+    ];
+
+    try {
+      entries = JSON.parse(note.content.text);
+    } catch (e) {
+      // Couldn't parse the content
+    }
+
+    this.state = {
+      note,
+      entries,
+      service: '',
+      account: '',
+      secret: ''
+    };
     // BridgeManager.get().addUpdateObserver(() => {
     //   this.setState({note: BridgeManager.get().getNote()});
     // })
   }
 
-  async getToken (key) {
-    const token = await totp.gen(key)
+  handleInputChange = event => {
+    const target = event.target;
+    const name = target.name;
+
     this.setState({
-      ...this.state,
-      token
-    })
-  }
+      [name]: target.value
+    });
+  };
+
+  addNew = () => {
+    const { service, account, secret, entries } = this.state;
+    this.setState({
+      entries: entries.concat([{ service, account, secret }])
+    });
+    // Save note content here
+  };
+
+  onEntryChange = ({ id, name, value }) => {
+    this.setState({
+      entries: update(this.state.entries, { [id]: { [name]: { $set: value } } })
+    });
+    // Save note content here
+  };
 
   render() {
     return (
       <div>
-      {/* <button onClick={() => this.getToken('K5EGOS3NMFZVCK3GNZEXK6TEGNJUUQSJ')}>click me!</button> */}
-      <div>
-        <p>Component is ready.</p>
-
-        {this.state.note &&
-          <div>
-            <p>
-              Working note title: <strong>{this.state.note.content.title}</strong>
-            </p>
-            <p>
-              Working note content: <strong>{this.state.note.content.text}</strong>
-            </p>
-            <p>
-              {this.state.token}
-            </p>
-          </div>
-        }
+        <input
+          name="service"
+          placeholder="Service"
+          onChange={this.handleInputChange}
+        />
+        <input
+          name="account"
+          placeholder="Account"
+          onChange={this.handleInputChange}
+        />
+        <input
+          name="secret"
+          placeholder="Secret"
+          onChange={this.handleInputChange}
+        />
+        <button
+          onClick={this.addNew}
+          disabled={this.state.secret.length !== 16}
+        >
+          Add New
+        </button>
+        <div>
+          <p>Component is ready.</p>
+          <table>
+            {this.state.entries.map((entry, idx) => (
+              <AuthEntry
+                key={idx}
+                id={idx}
+                entry={entry}
+                onEntryChange={this.onEntryChange}
+              />
+            ))}
+          </table>
+        </div>
       </div>
-      </div>
-    )
+    );
   }
 }

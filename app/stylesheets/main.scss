@@ -3,3 +3,29 @@ body {
   font-family: sans-serif;
   margin: 15px;
 }
+
+svg#countdown {
+  transform: rotateY(-180deg) rotateZ(-90deg);
+  height: 1em;
+  width: 1em;
+}
+
+svg circle {
+  stroke-dasharray: 113px;
+  stroke-dashoffset: 0px;
+  // stroke-linecap: round;
+  stroke-width: 4px;
+  stroke: black;
+  fill: none;
+  animation: countdown 10s linear infinite forwards;
+}
+
+// @keyframes countdown {
+//   from {
+//     stroke-dashoffset: 0px;
+//   }
+
+//   to {
+//     stroke-dashoffset: 113px;
+//   }
+// }
