@@ -61,7 +61,7 @@ class Countdown extends React.Component {
 
     return (
       <svg id="countdown" viewBox="0 0 40 40">
-        <circle style={style} r="18" cx="20" cy="20" />
+        <circle style={style} r="16" cx="20" cy="20" />
       </svg>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
-import AuthEntry from './AuthEntry';
 import update from 'immutability-helper';
+import EditEntry from './EditEntry';
+import ViewEntries from './ViewEntries';
 // import BridgeManager from '../lib/BridgeManager';
 
 const note = {
@@ -16,9 +17,17 @@ export default class Home extends React.Component {
 
     let entries = [
       {
-        service: 'a',
-        account: 'b',
-        secret: '1234567890123456'
+        service: 'Slack',
+        account: 'dag.janeiro@gmail.com',
+        secret: '1234567890123456',
+        notes: 'oh yeah'
+      },
+      {
+        service: 'Gmail',
+        account: 'dag.janeiro@gmail.com',
+        secret: '12345678902222',
+        notes:
+          'lots of notes in this one. Cause I can, and some more too. hahahaha. no, really, it has lots of notes.'
       }
     ];
 
@@ -31,75 +40,75 @@ export default class Home extends React.Component {
     this.state = {
       note,
       entries,
-      service: '',
-      account: '',
-      secret: ''
+      editMode: false,
+      editEntry: null
     };
     // BridgeManager.get().addUpdateObserver(() => {
     //   this.setState({note: BridgeManager.get().getNote()});
     // })
   }
 
-  handleInputChange = event => {
-    const target = event.target;
-    const name = target.name;
-
+  addNew = entry => {
     this.setState({
-      [name]: target.value
-    });
-  };
-
-  addNew = () => {
-    const { service, account, secret, entries } = this.state;
-    this.setState({
-      entries: entries.concat([{ service, account, secret }])
+      entries: this.state.entries.concat([entry])
     });
     // Save note content here
   };
 
-  onEntryChange = ({ id, name, value }) => {
+  editEntry = entry => {
     this.setState({
-      entries: update(this.state.entries, { [id]: { [name]: { $set: value } } })
+      entries: update(this.state, { entries: { [id]: { $set: entry } } })
     });
     // Save note content here
+  };
+
+  onSave = entry => {
+    // If there's no ID it's a new note
+    if (!entry.id) {
+      this.addNew(entry);
+    } else {
+      this.editEntry(entry);
+    }
+  };
+
+  onEdit = id => {
+    this.setState({
+      editMode: true,
+      editItem: this.state.entries[id]
+    });
+  };
+
+  onRemove = id => {
+    this.setState({
+      entries: update(this.state, { entries: { $splice: [[id, 1]] } })
+    });
   };
 
   render() {
     return (
-      <div>
-        <input
-          name="service"
-          placeholder="Service"
-          onChange={this.handleInputChange}
-        />
-        <input
-          name="account"
-          placeholder="Account"
-          onChange={this.handleInputChange}
-        />
-        <input
-          name="secret"
-          placeholder="Secret"
-          onChange={this.handleInputChange}
-        />
-        <button
-          onClick={this.addNew}
-          disabled={this.state.secret.length !== 16}
-        >
-          Add New
-        </button>
-        <div>
-          <p>Component is ready.</p>
-          <table>
-            {this.state.entries.map((entry, idx) => (
-              <AuthEntry
-                key={idx}
-                id={idx}
-                entry={entry}
-                onEntryChange={this.onEntryChange}
-              />
-            ))}
-          </table>
+      <div className="sn-component">
+        <div id="header">
+          <div className="sk-button-group">
+            <div onClick={() => {}} className="sk-button info">
+              <div className="sk-label">Add New</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content">
+          {this.state.editMode ? (
+            <EditEntry
+              entry={editItem}
+              onSave={this.onSave}
+              onCancel={this.onCancel}
+            />
+          ) : (
+            <ViewEntries
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
         </div>
       </div>
     );

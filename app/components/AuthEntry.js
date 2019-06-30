@@ -2,7 +2,7 @@ import React from 'react';
 import { totp } from '../lib/otp';
 import Countdown from './Countdown';
 
-export default class AuthItem extends React.Component {
+export default class AuthEntry extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +23,6 @@ export default class AuthItem extends React.Component {
     const token = await totp.gen(secret);
 
     const timeLeft = this.getTimeLeft();
-    console.log('time left', timeLeft);
     this.setState({
       token
     });
@@ -32,8 +31,8 @@ export default class AuthItem extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    // If the props changed make sure to recalculate token
-    if (nextProps !== this.props) {
+    // If the secret changed make sure to recalculate token
+    if (nextProps.entry.secret !== this.props.entry.secret) {
       clearTimeout(this.timer);
       this.timer = setTimeout(this.updateToken, 0);
     }
@@ -55,29 +54,31 @@ export default class AuthItem extends React.Component {
   };
 
   render() {
-    const { service, account } = this.props.entry;
+    const { service, account, notes } = this.props.entry;
     const { token } = this.state;
+    const timeLeft = this.getTimeLeft();
+
     return (
-      <tr>
-        <td>
-          <input
-            name="service"
-            value={service}
-            onChange={this.handleInputChange}
-          />
-        </td>
-        <td>
-          <input
-            name="account"
-            value={account}
-            onChange={this.handleInputChange}
-          />
-        </td>
-        <td>{token}</td>
-        <td>
-          <Countdown token={token} left={this.getTimeLeft()} total={30} />
-        </td>
-      </tr>
+      <div className="auth-entry sk-notification sk-base">
+        <div className="auth-info">
+          <div className="auth-service">{service}</div>
+          <div className="auth-account">{account}</div>
+        </div>
+        <div className="auth-notes">{notes}</div>
+        <div className="auth-token">
+          <div>{token.substr(0, 3)}</div>
+          <div>{token.substr(3, 3)}</div>
+        </div>
+        <div className="auth-countdown">
+          <Countdown token={token} left={timeLeft} total={30} />
+        </div>
+        <div className="auth-options">
+          <div className="sk-button">
+            <div className="sk-label">•••</div>
+          </div>
+        </div>
+        {/* <div >{notes}</div> */}
+      </div>
     );
   }
 }
