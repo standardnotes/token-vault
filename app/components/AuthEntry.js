@@ -1,6 +1,7 @@
 import React from 'react';
 import { totp } from '../lib/otp';
 import Countdown from './Countdown';
+import AuthMenu from './AuthMenu';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
@@ -55,6 +56,7 @@ export default class AuthEntry extends React.Component {
 
   render() {
     const { service, account, notes } = this.props.entry;
+    const { id, onEdit, onRemove } = this.props;
     const { token } = this.state;
     const timeLeft = this.getTimeLeft();
 
@@ -73,9 +75,10 @@ export default class AuthEntry extends React.Component {
           <Countdown token={token} left={timeLeft} total={30} />
         </div>
         <div className="auth-options">
-          <div className="sk-button">
-            <div className="sk-label">•••</div>
-          </div>
+          <AuthMenu
+            onEdit={onEdit.bind(this, id)}
+            onRemove={onRemove.bind(this, id)}
+          />
         </div>
         {/* <div >{notes}</div> */}
       </div>

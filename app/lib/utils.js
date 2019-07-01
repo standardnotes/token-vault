@@ -1,3 +1,6 @@
+const base32chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+export const secretPattern = `^[${base32chars}]{16,}$`;
+
 export function hexToBytes(hex) {
   var bytes = [];
   for (var c = 0, C = hex.length; c < C; c += 2) {
@@ -27,8 +30,7 @@ export function hextoBuf(hex) {
 }
 
 export function base32ToHex(base32) {
-  var base32chars, bits, chunk, hex, i, val;
-  base32chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  var bits, chunk, hex, i, val;
   bits = '';
   hex = '';
   i = 0;

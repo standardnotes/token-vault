@@ -8,8 +8,8 @@ const ViewEntries = ({ entries, onEdit, onRemove }) => (
         key={idx}
         id={idx}
         entry={entry}
-        onEdit={onEdit.bind(this, idx)}
-        onRemove={onRemove.bind(this, idx)}
+        onEdit={onEdit}
+        onRemove={onRemove}
       />
     ))}
   </div>

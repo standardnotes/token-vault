@@ -17,7 +17,7 @@ class Countdown extends React.Component {
 
   calculateInitialOffset(left, total) {
     const percentage = (left * 100) / total;
-    return 113 - (percentage * 113) / 100;
+    return 113 - (percentage * 113) / 100 + 12; // 12 is an offset so that the animation starts immediately
   }
 
   updateCountdown(left, total) {
