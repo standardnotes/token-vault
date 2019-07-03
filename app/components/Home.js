@@ -4,75 +4,102 @@ import EditEntry from './EditEntry';
 import ViewEntries from './ViewEntries';
 import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
-// import BridgeManager from '../lib/BridgeManager';
+import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
 
-const note = {
-  content: {
-    title: 'test title',
-    text: ''
+let entries = [
+  {
+    service: 'Slack',
+    account: 'dag.janeiro@gmail.com',
+    secret: '3333333333333333',
+    notes: 'oh yeah'
+  },
+  {
+    service: 'Gmail',
+    account: 'dag.janeiro@gmail.com',
+    secret: '2222222222222222',
+    notes:
+      'lots of notes in this one. Cause I can, and some more too. hahahaha. no, really, it has lots of notes.'
   }
+];
+
+const initialState = {
+  text: '',
+  entries,
+  parseError: false,
+  editMode: false,
+  editEntry: null,
+  confirmRemove: false
 };
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
+    console.log('hello');
+    this.configureEditorKit();
+    this.state = initialState;
+  }
 
-    let parseError = false;
+  configureEditorKit() {
+    let delegate = new EditorKitDelegate({
+      setEditorRawText: text => {
+        console.log('received text', text);
+        let parseError = false;
+        let entries = [];
 
-    let entries = [
-      {
-        service: 'Slack',
-        account: 'dag.janeiro@gmail.com',
-        secret: '3333333333333333',
-        notes: 'oh yeah'
+        if (text) {
+          try {
+            entries = JSON.parse(text);
+          } catch (e) {
+            // Couldn't parse the content
+            parseError = true;
+            this.setState({
+              parseError: true
+            });
+          }
+        }
+
+        this.setState({
+          ...initialState,
+          text,
+          parseError,
+          entries
+        });
       },
-      {
-        service: 'Gmail',
-        account: 'dag.janeiro@gmail.com',
-        secret: '2222222222222222',
-        notes:
-          'lots of notes in this one. Cause I can, and some more too. hahahaha. no, really, it has lots of notes.'
-      }
-    ];
+      clearUndoHistory: () => {},
+      getElementsBySelector: () => []
+    });
 
-    if (note.content.text) {
-      try {
-        entries = JSON.parse(note.content.text);
-      } catch (e) {
-        // Couldn't parse the content
-        parseError = true;
-      }
-    }
-
-    this.state = {
-      note,
-      entries,
-      parseError,
-      editMode: false,
-      editEntry: null,
-      confirmRemove: false
-    };
-    // BridgeManager.get().addUpdateObserver(() => {
-    //   this.setState({note: BridgeManager.get().getNote()});
-    // })
+    this.editorKit = new EditorKit({
+      delegate: delegate,
+      mode: 'json',
+      supportsFilesafe: true
+    });
   }
 
   addNew = entry => {
-    this.setState(state => ({
-      editMode: false,
-      editEntry: null,
-      entries: state.entries.concat([entry])
-    }));
-    // Save note content here
+    this.setState(state => {
+      const entries = state.entries.concat([entry]);
+      this.editorKit.onEditorValueChanged(JSON.stringify(entries));
+
+      return {
+        editMode: false,
+        editEntry: null,
+        entries
+      };
+    });
   };
 
   editEntry = ({ id, entry }) => {
-    this.setState(state => ({
-      editMode: false,
-      editEntry: null,
-      entries: update(state.entries, { [id]: { $set: entry } })
-    }));
-    // Save note content here
+    this.setState(state => {
+      const entries = update(state.entries, { [id]: { $set: entry } });
+      this.editorKit.onEditorValueChanged(JSON.stringify(entries));
+
+      return {
+        editMode: false,
+        editEntry: null,
+        entries
+      };
+    });
   };
 
   onAddNew = () => {
