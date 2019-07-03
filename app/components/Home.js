@@ -2,18 +2,22 @@ import React from 'react';
 import update from 'immutability-helper';
 import EditEntry from './EditEntry';
 import ViewEntries from './ViewEntries';
+import ConfirmDialog from './ConfirmDialog';
+import DataErrorAlert from './DataErrorAlert';
 // import BridgeManager from '../lib/BridgeManager';
 
 const note = {
   content: {
     title: 'test title',
-    text: 'test content'
+    text: ''
   }
 };
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
+
+    let parseError = false;
 
     let entries = [
       {
@@ -31,17 +35,22 @@ export default class Home extends React.Component {
       }
     ];
 
-    try {
-      entries = JSON.parse(note.content.text);
-    } catch (e) {
-      // Couldn't parse the content
+    if (note.content.text) {
+      try {
+        entries = JSON.parse(note.content.text);
+      } catch (e) {
+        // Couldn't parse the content
+        parseError = true;
+      }
     }
 
     this.state = {
       note,
       entries,
+      parseError,
       editMode: false,
-      editEntry: null
+      editEntry: null,
+      confirmRemove: false
     };
     // BridgeManager.get().addUpdateObserver(() => {
     //   this.setState({note: BridgeManager.get().getNote()});
@@ -74,7 +83,6 @@ export default class Home extends React.Component {
   };
 
   onEdit = id => {
-    console.log('editing', id);
     this.setState(state => ({
       editMode: true,
       editEntry: {
@@ -86,6 +94,7 @@ export default class Home extends React.Component {
 
   onCancel = () => {
     this.setState({
+      confirmRemove: false,
       editMode: false,
       editEntry: null
     });
@@ -93,6 +102,18 @@ export default class Home extends React.Component {
 
   onRemove = id => {
     this.setState(state => ({
+      confirmRemove: true,
+      editEntry: {
+        id,
+        entry: state.entries[id]
+      }
+    }));
+  };
+
+  removeEntry = id => {
+    this.setState(state => ({
+      confirmRemove: false,
+      editEntry: null,
       entries: update(state.entries, { $splice: [[id, 1]] })
     }));
   };
@@ -110,6 +131,7 @@ export default class Home extends React.Component {
     const editEntry = this.state.editEntry || {};
     return (
       <div className="sn-component">
+        {this.state.parseError && <DataErrorAlert />}
         <div id="header">
           <div className="sk-button-group">
             <div onClick={this.onAddNew} className="sk-button info">
@@ -131,6 +153,14 @@ export default class Home extends React.Component {
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
+            />
+          )}
+          {this.state.confirmRemove && (
+            <ConfirmDialog
+              title={`Remove ${editEntry.entry.service}`}
+              message="Are you sure you want to remove this entry?"
+              onConfirm={() => this.removeEntry(editEntry.id)}
+              onCancel={this.onCancel}
             />
           )}
         </div>

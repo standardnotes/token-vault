@@ -32,7 +32,7 @@ export default class AuthMenu extends React.Component {
           <div className="sk-label">•••</div>
         </div>
         {this.state.show && [
-          <div className="auth-menu-overlay" onClick={this.onToggle} />,
+          <div className="auth-overlay" onClick={this.onToggle} />,
           <div className="sk-menu-panel">
             <div className="sk-menu-panel-row" onClick={this.onEdit}>
               <div className="sk-label">Edit</div>

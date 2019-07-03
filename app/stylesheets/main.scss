@@ -39,6 +39,26 @@ html {
   padding: 0 10px;
 }
 
+.auth-dialog {
+  width: 450px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.auth-overlay {
+  position: fixed !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
 .auth-list {
   display: flex;
   flex-direction: column;
@@ -77,12 +97,10 @@ html {
     font-size: var(--sn-stylekit-base-font-size);
     font-style: italic;
     overflow: hidden;
-    // max-height: 4rem;
   }
 
   .auth-token {
     font-size: 2rem;
-    // line-height: 3.4rem;
     align-self: center;
     font-weight: bold;
     color: var(--sn-stylekit-info-color);
@@ -115,17 +133,6 @@ html {
   .auth-options {
     color: var(--sn-stylekit-contrast-foreground-color);
     overflow: visible;
-
-    .auth-menu-overlay {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-    }
 
     .sk-menu-panel {
       position: absolute;

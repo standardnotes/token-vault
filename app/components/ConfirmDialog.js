@@ -1,21 +1,29 @@
 import React from 'react';
 
-const ConfirmDialog = ({ onConfirm, onCancel }) => (
-  <div className="auth-menu">
-    <div className="sk-button" onClick={this.onToggle}>
-      <div className="sk-label">•••</div>
-    </div>
-    {this.state.show && [
-      <div className="auth-menu-overlay" onClick={this.onToggle} />,
-      <div className="sk-menu-panel">
-        <div className="sk-menu-panel-row" onClick={onEdit}>
-          <div className="sk-label">Edit</div>
-        </div>
-        <div className="sk-menu-panel-row" onClick={onRemove}>
-          <div className="sk-label">Remove</div>
+const ConfirmDialog = ({ title, message, onConfirm, onCancel }) => (
+  <div className="auth-overlay">
+    <div className="auth-dialog sk-panel">
+      <div className="sk-panel-header">
+        <div className="sk-panel-header-title">{title}</div>
+      </div>
+      <div className="sk-panel-content">
+        <div className="sk-panel-section sk-panel-hero">
+          <div className="sk-panel-row">
+            <div className="sk-h1">{message}</div>
+          </div>
         </div>
       </div>
-    ]}
+      <div className="sk-panel-footer">
+        <div className="sk-button-group stretch">
+          <div className="sk-button neutral" onClick={onCancel}>
+            <div className="sk-label">Cancel</div>
+          </div>
+          <div className="sk-button info" onClick={onConfirm}>
+            <div className="sk-label">Confirm</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
