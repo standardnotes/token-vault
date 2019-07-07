@@ -34,7 +34,6 @@ const initialState = {
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    console.log('hello');
     this.configureEditorKit();
     this.state = initialState;
   }
@@ -42,7 +41,6 @@ export default class Home extends React.Component {
   configureEditorKit() {
     let delegate = new EditorKitDelegate({
       setEditorRawText: text => {
-        console.log('received text', text);
         let parseError = false;
         let entries = [];
 
@@ -65,6 +63,18 @@ export default class Home extends React.Component {
           entries
         });
       },
+      generateCustomPreview: text => {
+        let entries = [];
+        try {
+          entries = JSON.parse(text);
+        } finally {
+          return {
+            html: `<div><strong>Authenticator entries</strong>: ${
+              entries.length
+            }</div>`
+          };
+        }
+      },
       clearUndoHistory: () => {},
       getElementsBySelector: () => []
     });
@@ -72,11 +82,12 @@ export default class Home extends React.Component {
     this.editorKit = new EditorKit({
       delegate: delegate,
       mode: 'json',
-      supportsFilesafe: true
+      supportsFilesafe: false
     });
   }
 
-  addNew = entry => {
+  // Entry operations
+  addEntry = entry => {
     this.setState(state => {
       const entries = state.entries.concat([entry]);
       this.editorKit.onEditorValueChanged(JSON.stringify(entries));
@@ -102,6 +113,20 @@ export default class Home extends React.Component {
     });
   };
 
+  removeEntry = id => {
+    this.setState(state => {
+      const entries = update(state.entries, { $splice: [[id, 1]] });
+      this.editorKit.onEditorValueChanged(JSON.stringify(entries));
+
+      return {
+        confirmRemove: false,
+        editEntry: null,
+        entries
+      };
+    });
+  };
+
+  // Event Handlers
   onAddNew = () => {
     this.setState({
       editMode: true,
@@ -137,20 +162,12 @@ export default class Home extends React.Component {
     }));
   };
 
-  removeEntry = id => {
-    this.setState(state => ({
-      confirmRemove: false,
-      editEntry: null,
-      entries: update(state.entries, { $splice: [[id, 1]] })
-    }));
-  };
-
   onSave = ({ id, entry }) => {
     // If there's no ID it's a new note
     if (id != null) {
       this.editEntry({ id, entry });
     } else {
-      this.addNew(entry);
+      this.addEntry(entry);
     }
   };
 

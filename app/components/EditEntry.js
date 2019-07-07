@@ -1,4 +1,5 @@
 import React from 'react';
+import QRCodeReader from './QRCodeReader';
 import { secretPattern } from '../lib/otp';
 
 export default class EditEntry extends React.Component {
@@ -32,6 +33,20 @@ export default class EditEntry extends React.Component {
     this.props.onSave({ id, entry });
   };
 
+  onQRCodeSuccess = otpData => {
+    console.log('otp success', otpData);
+    const { issuer: labelIssuer, account } = otpData.label;
+    const { issuer: queryIssuer, secret } = otpData.query;
+
+    this.setState({
+      entry: {
+        service: labelIssuer || queryIssuer || '',
+        account,
+        secret
+      }
+    });
+  };
+
   render() {
     const { id, entry } = this.state;
 
@@ -41,6 +56,12 @@ export default class EditEntry extends React.Component {
           <div className="sk-panel-section">
             <div className="sk-panel-section-title sk-panel-row">
               {id != null ? 'Edit entry' : 'Add new entry'}
+              {id == null && (
+                <QRCodeReader
+                  onSuccess={this.onQRCodeSuccess}
+                  onError={this.onQRCodeError}
+                />
+              )}
             </div>
             <form onSubmit={this.onSave}>
               <input

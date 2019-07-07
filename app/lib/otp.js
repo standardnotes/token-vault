@@ -6,7 +6,7 @@ import {
   hextoBuf,
   hexToBytes
 } from './utils';
-export { secretPattern } from './utils';
+export { secretPattern, parseKeyUri } from './utils';
 
 class Hotp {
   /**
