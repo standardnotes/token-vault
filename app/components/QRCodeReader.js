@@ -21,7 +21,6 @@ export default class QRCodeReader extends React.Component {
       const code = jsQR(imageData.data, imageData.width, imageData.height);
 
       if (code) {
-        console.log('Found QR code', code);
         const otpData = parseKeyUri(code.data);
         if (otpData.type !== 'totp') {
           self.props.onError(`${otpData.type} is not supported.`);
