@@ -34,7 +34,6 @@ export default class EditEntry extends React.Component {
   };
 
   onQRCodeSuccess = otpData => {
-    console.log('otp success', otpData);
     const { issuer: labelIssuer, account } = otpData.label;
     const { issuer: queryIssuer, secret } = otpData.query;
 
@@ -96,6 +95,7 @@ export default class EditEntry extends React.Component {
                 className="sk-input contrast"
                 placeholder="Notes"
                 value={entry.notes}
+                onChange={this.handleInputChange}
                 type="text"
               />
               <div className="sk-panel-row">

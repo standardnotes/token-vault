@@ -73,15 +73,53 @@ html {
   margin: 10 0;
 }
 
-.auth-entry {
-  display: flex;
-  align-items: center;
+.sk-notification {
+  min-width: 360px;
   // Hacking sk-notification style
   overflow: visible !important; // We need this for the dropdown menu
   margin: 10 0 0 0 !important;
   padding: 28 14 28 28 !important;
+}
+
+/* Notes responsive behaviour */
+.auth-notes-row {
+  margin-top: 20px;
+}
+
+.auth-notes-inline {
+  flex: 1;
+  display: none;
+  margin: 0 32px;
+}
+
+.auth-notes {
+  font-size: var(--sn-stylekit-base-font-size);
+  font-style: italic;
+  overflow: hidden;
+}
+
+@media (min-width: 576px) {
+  .auth-notes-row {
+    display: none !important;
+  }
+
+  .auth-notes-inline {
+    display: flex;
+  }
 
   .auth-info {
+    flex-grow: 0 !important;
+  }
+}
+
+/* entry default styles */
+.auth-entry {
+  display: flex;
+  align-items: center;
+
+  .auth-info {
+    flex: 1 1 auto;
+
     .auth-service {
       font-size: var(--sn-stylekit-font-size-h1);
       font-weight: bold;
@@ -96,44 +134,43 @@ html {
     }
   }
 
-  .auth-notes {
-    flex: 1;
-    margin: 0 32px;
-    font-size: var(--sn-stylekit-base-font-size);
-    font-style: italic;
-    overflow: hidden;
-  }
-
-  .auth-token {
-    font-size: 2rem;
-    align-self: center;
-    font-weight: bold;
-    color: var(--sn-stylekit-info-color);
+  .auth-token-info {
     display: flex;
-    justify-content: space-between;
-    width: 8.2rem;
-  }
+    align-items: center;
+    padding-right: 12px;
 
-  .auth-countdown {
-    padding: 0 28px 0 14px;
-
-    // Countdown animation
-    #countdown {
-      transform: rotateY(-180deg) rotateZ(-90deg);
-      height: 1.8rem;
-      width: 1.8rem;
+    .auth-token {
+      font-size: 2rem;
       align-self: center;
+      font-weight: bold;
+      color: var(--sn-stylekit-info-color);
+      display: flex;
+      justify-content: space-between;
+      width: 8.2rem;
+    }
 
-      circle {
-        stroke-dasharray: 113px;
-        stroke-dashoffset: 0px;
-        stroke-width: 4px;
-        stroke: var(--sn-stylekit-success-color);
-        fill: none;
-        animation: countdown 10s linear infinite forwards;
+    .auth-countdown {
+      padding: 0 12px;
+
+      // Countdown animation
+      #countdown {
+        transform: rotateY(-180deg) rotateZ(-90deg);
+        height: 1.8rem;
+        width: 1.8rem;
+        align-self: center;
+
+        circle {
+          stroke-dasharray: 113px;
+          stroke-dashoffset: 0px;
+          stroke-width: 4px;
+          stroke: var(--sn-stylekit-success-color);
+          fill: none;
+          animation: countdown 10s linear infinite forwards;
+        }
       }
     }
   }
+
 
   .auth-options {
     color: var(--sn-stylekit-contrast-foreground-color);

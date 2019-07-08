@@ -61,26 +61,36 @@ export default class AuthEntry extends React.Component {
     const timeLeft = this.getTimeLeft();
 
     return (
-      <div className="auth-entry sk-notification sk-base">
-        <div className="auth-info">
-          <div className="auth-service">{service}</div>
-          <div className="auth-account">{account}</div>
+      <div className="sk-notification sk-base">
+        <div className="auth-entry">
+          <div className="auth-info">
+            <div className="auth-service">{service}</div>
+            <div className="auth-account">{account}</div>
+          </div>
+          <div className="auth-notes-inline">
+            <div className="auth-notes">{notes}</div>
+          </div>
+          <div className="auth-token-info">
+            <div className="auth-token">
+              <div>{token.substr(0, 3)}</div>
+              <div>{token.substr(3, 3)}</div>
+            </div>
+            <div className="auth-countdown">
+              <Countdown token={token} left={timeLeft} total={30} />
+            </div>
+          </div>
+          <div className="auth-options">
+            <AuthMenu
+              onEdit={onEdit.bind(this, id)}
+              onRemove={onRemove.bind(this, id)}
+            />
+          </div>
         </div>
-        <div className="auth-notes">{notes}</div>
-        <div className="auth-token">
-          <div>{token.substr(0, 3)}</div>
-          <div>{token.substr(3, 3)}</div>
-        </div>
-        <div className="auth-countdown">
-          <Countdown token={token} left={timeLeft} total={30} />
-        </div>
-        <div className="auth-options">
-          <AuthMenu
-            onEdit={onEdit.bind(this, id)}
-            onRemove={onRemove.bind(this, id)}
-          />
-        </div>
-        {/* <div >{notes}</div> */}
+        {notes && (
+          <div className="auth-notes-row">
+            <div className="auth-notes">{notes}</div>
+          </div>
+        )}
       </div>
     );
   }
