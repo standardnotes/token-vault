@@ -54,6 +54,15 @@ export default class AuthEntry extends React.Component {
     });
   };
 
+  copyToken = event => {
+    const textField = document.createElement('textarea');
+    textField.innerText = this.state.token;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+  };
+
   render() {
     const { service, account, notes } = this.props.entry;
     const { id, onEdit, onRemove } = this.props;
@@ -71,7 +80,7 @@ export default class AuthEntry extends React.Component {
             <div className="auth-notes">{notes}</div>
           </div>
           <div className="auth-token-info">
-            <div className="auth-token">
+            <div className="auth-token" onClick={this.copyToken}>
               <div>{token.substr(0, 3)}</div>
               <div>{token.substr(3, 3)}</div>
             </div>
