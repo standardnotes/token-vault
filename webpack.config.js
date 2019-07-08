@@ -25,6 +25,9 @@ module.exports = {
     publicPath: '/',
     filename: './dist.js'
   },
+  externals: {
+    'filesafe-js': 'filesafe-js'
+  },
   module: {
     loaders: [
       {

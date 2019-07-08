@@ -15,6 +15,9 @@ module.exports = {
     publicPath: '/',
     filename: './bundle.js'
   },
+  externals: {
+    'filesafe-js': 'filesafe-js'
+  },
   module: {
     loaders: [
       {
