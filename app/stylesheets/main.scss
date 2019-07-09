@@ -1,4 +1,4 @@
-@import "~stylekit";
+@import '~stylekit';
 
 body,
 html {
@@ -50,7 +50,7 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 200;
 }
 
 .auth-overlay {
@@ -61,7 +61,7 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 100;
 }
 
 .auth-list {
@@ -172,7 +172,6 @@ html {
     }
   }
 
-
   .auth-options {
     color: var(--sn-stylekit-contrast-foreground-color);
     overflow: visible;
@@ -180,7 +179,84 @@ html {
     .sk-menu-panel {
       position: absolute;
       right: 0;
-      z-index: 2;
+      z-index: 200;
     }
   }
 }
+
+/* spinner */
+.countdown-pie {
+  position: relative;
+  margin: 40px auto;
+  width: 24px;
+  height: 24px;
+  background: var(--sn-stylekit-background-color);
+}
+
+.countdown-pie,
+.countdown-pie * {
+  box-sizing: border-box;
+}
+
+.countdown-pie .pie {
+  width: 50%;
+  height: 100%;
+  transform-origin: 100% 50%;
+  position: absolute !important;
+  background: var(--sn-stylekit-info-color);
+}
+
+.countdown-pie .spinner {
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+  z-index: 20;
+  border-right: none;
+  // animation: rota 30s linear infinite;
+}
+
+.countdown-pie .background {
+  border-radius: 50%;
+  width: 100%;
+  z-index: 40;
+  color: var(--sn-stylekit-info-color);
+  opacity: 0.4;
+}
+
+.countdown-pie .filler {
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+  left: 50%;
+  opacity: 0;
+  z-index: 10;
+  // animation: opa 30s steps(1, end) infinite reverse;
+  border-left: none;
+}
+
+.countdown-pie .mask {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  background: inherit;
+  opacity: 1;
+  z-index: 30;
+  // animation: opa 30s steps(1, end) infinite;
+}
+
+// @keyframes rota {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// @keyframes opa {
+//   0% {
+//     opacity: 1;
+//   }
+
+//   50%,
+//   100% {
+//     opacity: 0;
+//   }
+// }

@@ -6,25 +6,9 @@ import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
 import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
 
-let entries = [
-  {
-    service: 'Slack',
-    account: 'dag.janeiro@gmail.com',
-    secret: '3333333333333333',
-    notes: 'oh yeah'
-  },
-  {
-    service: 'Gmail',
-    account: 'dag.janeiro@gmail.com',
-    secret: '2222222222222222',
-    notes:
-      'lots of notes in this one. Cause I can, and some more too. hahahaha. no, really, it has lots of notes.'
-  }
-];
-
 const initialState = {
   text: '',
-  entries,
+  entries: [],
   parseError: false,
   editMode: false,
   editEntry: null,

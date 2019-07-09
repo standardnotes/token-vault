@@ -1,6 +1,6 @@
 import React from 'react';
 import { totp } from '../lib/otp';
-import Countdown from './Countdown';
+import CountdownPie from './CountdownPie';
 import AuthMenu from './AuthMenu';
 
 export default class AuthEntry extends React.Component {
@@ -85,7 +85,7 @@ export default class AuthEntry extends React.Component {
               <div>{token.substr(3, 3)}</div>
             </div>
             <div className="auth-countdown">
-              <Countdown token={token} left={timeLeft} total={30} />
+              <CountdownPie token={token} left={timeLeft} total={30} />
             </div>
           </div>
           <div className="auth-options">
