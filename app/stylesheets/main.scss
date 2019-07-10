@@ -74,41 +74,19 @@ html {
 }
 
 .sk-notification {
-  min-width: 360px;
   // Hacking sk-notification style
   overflow: visible !important; // We need this for the dropdown menu
   margin: 10 0 0 0 !important;
   padding: 28 14 28 28 !important;
 }
 
-/* Notes responsive behaviour */
 .auth-notes-row {
   margin-top: 20px;
-}
 
-.auth-notes-inline {
-  flex: 1;
-  display: none;
-  margin: 0 32px;
-}
-
-.auth-notes {
-  font-size: var(--sn-stylekit-base-font-size);
-  font-style: italic;
-  overflow: hidden;
-}
-
-@media (min-width: 576px) {
-  .auth-notes-row {
-    display: none !important;
-  }
-
-  .auth-notes-inline {
-    display: flex;
-  }
-
-  .auth-info {
-    flex-grow: 0 !important;
+  .auth-notes {
+    font-size: var(--sn-stylekit-base-font-size);
+    font-style: italic;
+    overflow: hidden;
   }
 }
 
@@ -117,56 +95,63 @@ html {
   display: flex;
   align-items: center;
 
-  .auth-info {
-    flex: 1 1 auto;
-
-    .auth-service {
-      font-size: var(--sn-stylekit-font-size-h1);
-      font-weight: bold;
-      line-height: 1.9rem;
-    }
-
-    .auth-account {
-      line-height: 1.5rem;
-      font-size: var(--sn-stylekit-font-size-p);
-      text-align: left;
-      font-weight: normal;
-    }
-  }
-
-  .auth-token-info {
+  .auth-details {
+    flex: 1;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    padding-right: 12px;
 
-    .auth-token {
-      font-size: 2rem;
-      align-self: center;
-      font-weight: bold;
-      color: var(--sn-stylekit-info-color);
-      display: flex;
-      justify-content: space-between;
-      width: 8.2rem;
-      cursor: pointer;
+    .auth-info {
+      flex: 1 1 auto;
+
+      .auth-service {
+        font-size: var(--sn-stylekit-font-size-h1);
+        font-weight: bold;
+        line-height: 1.9rem;
+      }
+
+      .auth-account {
+        line-height: 1.5rem;
+        font-size: var(--sn-stylekit-font-size-p);
+        text-align: left;
+        font-weight: normal;
+      }
     }
 
-    .auth-countdown {
-      padding: 0 12px;
+    .auth-token-info {
+      display: flex;
+      align-items: center;
+      padding-right: 12px;
 
-      // Countdown animation
-      #countdown {
-        transform: rotateY(-180deg) rotateZ(-90deg);
-        height: 1.8rem;
-        width: 1.8rem;
+      .auth-token {
+        font-size: 2rem;
         align-self: center;
+        font-weight: bold;
+        color: var(--sn-stylekit-info-color);
+        display: flex;
+        justify-content: space-between;
+        width: 8.2rem;
+        cursor: pointer;
+      }
 
-        circle {
-          stroke-dasharray: 113px;
-          stroke-dashoffset: 0px;
-          stroke-width: 4px;
-          stroke: var(--sn-stylekit-success-color);
-          fill: none;
-          animation: countdown 10s linear infinite forwards;
+      .auth-countdown {
+        padding: 0 12px;
+
+        // Countdown animation
+        #countdown {
+          transform: rotateY(-180deg) rotateZ(-90deg);
+          height: 1.8rem;
+          width: 1.8rem;
+          align-self: center;
+
+          circle {
+            stroke-dasharray: 113px;
+            stroke-dashoffset: 0px;
+            stroke-width: 4px;
+            stroke: var(--sn-stylekit-success-color);
+            fill: none;
+            animation: countdown 10s linear infinite forwards;
+          }
         }
       }
     }
@@ -210,6 +195,7 @@ html {
   border-radius: 100% 0 0 100% / 50% 0 0 50%;
   z-index: 20;
   border-right: none;
+  // Injected in CountdownPie.js
   // animation: rota 30s linear infinite;
 }
 
@@ -226,6 +212,7 @@ html {
   left: 50%;
   opacity: 0;
   z-index: 10;
+  // Injected in CountdownPie.js
   // animation: opa 30s steps(1, end) infinite reverse;
   border-left: none;
 }
@@ -237,9 +224,10 @@ html {
   background: inherit;
   opacity: 1;
   z-index: 30;
+  // Injected in CountdownPie.js
   // animation: opa 30s steps(1, end) infinite;
 }
-
+// Injected in CountdownPie.js
 // @keyframes rota {
 //   0% {
 //     transform: rotate(0deg);
@@ -250,6 +238,7 @@ html {
 //   }
 // }
 
+// Injected in CountdownPie.js
 // @keyframes opa {
 //   0% {
 //     opacity: 1;

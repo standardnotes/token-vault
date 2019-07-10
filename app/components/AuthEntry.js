@@ -72,20 +72,19 @@ export default class AuthEntry extends React.Component {
     return (
       <div className="sk-notification sk-base">
         <div className="auth-entry">
-          <div className="auth-info">
-            <div className="auth-service">{service}</div>
-            <div className="auth-account">{account}</div>
-          </div>
-          <div className="auth-notes-inline">
-            <div className="auth-notes">{notes}</div>
-          </div>
-          <div className="auth-token-info">
-            <div className="auth-token" onClick={this.copyToken}>
-              <div>{token.substr(0, 3)}</div>
-              <div>{token.substr(3, 3)}</div>
+          <div className="auth-details">
+            <div className="auth-info">
+              <div className="auth-service">{service}</div>
+              <div className="auth-account">{account}</div>
             </div>
-            <div className="auth-countdown">
-              <CountdownPie token={token} left={timeLeft} total={30} />
+            <div className="auth-token-info">
+              <div className="auth-token" onClick={this.copyToken}>
+                <div>{token.substr(0, 3)}</div>
+                <div>{token.substr(3, 3)}</div>
+              </div>
+              <div className="auth-countdown">
+                <CountdownPie token={token} left={timeLeft} total={30} />
+              </div>
             </div>
           </div>
           <div className="auth-options">

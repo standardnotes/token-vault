@@ -46,6 +46,10 @@ export default class EditEntry extends React.Component {
     });
   };
 
+  onQRCodeError = message => {
+    console.warn('Failed to parse QRCode:', message);
+  };
+
   render() {
     const { id, entry } = this.state;
 
