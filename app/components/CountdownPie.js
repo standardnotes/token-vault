@@ -1,6 +1,7 @@
 import React from 'react';
 
 const animationName = token => `countdown${token}`;
+
 const rotaAnimation = (token, offset) => `@keyframes rota_${animationName(
   token
 )} {
@@ -52,7 +53,8 @@ class CountdownPie extends React.Component {
   calculateOpaOffset(left, total) {
     const percentage = this.calculatePercentage(left, total) * 100;
     const percTo50 = 50 - percentage;
-    return percTo50 < 0 ? 0 : Math.ceil(Math.min(percTo50 + 5, 50));
+    // 8 is an offset because the animation is not in sync otherwise
+    return percTo50 < 0 ? 0 : Math.ceil(Math.min(percTo50 + 8, 50));
   }
 
   calculatePercentage(left, total) {
@@ -114,7 +116,6 @@ class CountdownPie extends React.Component {
 
   render() {
     const { left, total } = this.props;
-    // const { left, total } = { left: 3, total: 4 };
     this.updateCountdown(left, total);
 
     return (

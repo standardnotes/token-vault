@@ -46,7 +46,7 @@ export default class QRCodeReader extends React.Component {
             style={{ display: 'none' }}
             onChange={this.onImageSelected}
           />
-          <div className="sk-label">Scan QRCode</div>
+          <div className="sk-label">Upload QR Code</div>
         </label>
       </div>
     );

@@ -70,11 +70,15 @@ export default class Home extends React.Component {
     });
   }
 
+  saveNote(entries) {
+    this.editorKit.onEditorValueChanged(JSON.stringify(entries, null, 2));
+  }
+
   // Entry operations
   addEntry = entry => {
     this.setState(state => {
       const entries = state.entries.concat([entry]);
-      this.editorKit.onEditorValueChanged(JSON.stringify(entries));
+      this.saveNote(entries);
 
       return {
         editMode: false,
@@ -87,7 +91,7 @@ export default class Home extends React.Component {
   editEntry = ({ id, entry }) => {
     this.setState(state => {
       const entries = update(state.entries, { [id]: { $set: entry } });
-      this.editorKit.onEditorValueChanged(JSON.stringify(entries));
+      this.saveNote(entries);
 
       return {
         editMode: false,
@@ -100,7 +104,7 @@ export default class Home extends React.Component {
   removeEntry = id => {
     this.setState(state => {
       const entries = update(state.entries, { $splice: [[id, 1]] });
-      this.editorKit.onEditorValueChanged(JSON.stringify(entries));
+      this.saveNote(entries);
 
       return {
         confirmRemove: false,
