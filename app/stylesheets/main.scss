@@ -81,8 +81,6 @@ html {
 }
 
 .auth-notes-row {
-  margin-top: 20px;
-
   .auth-notes {
     font-size: var(--sn-stylekit-base-font-size);
     font-style: italic;
@@ -96,6 +94,7 @@ html {
   align-items: center;
 
   .auth-details {
+    margin-bottom: 8px;
     flex: 1;
     display: flex;
     flex-wrap: wrap;
@@ -103,6 +102,7 @@ html {
 
     .auth-info {
       flex: 1 1 auto;
+      margin: 4px 0;
 
       .auth-service {
         font-size: var(--sn-stylekit-font-size-h1);
@@ -160,6 +160,8 @@ html {
   .auth-options {
     color: var(--sn-stylekit-contrast-foreground-color);
     overflow: visible;
+    margin-bottom: 8px;
+    align-self: flex-start;
 
     .sk-menu-panel {
       position: absolute;
@@ -172,7 +174,6 @@ html {
 /* spinner */
 .countdown-pie {
   position: relative;
-  margin: 40px auto;
   width: 24px;
   height: 24px;
   background: var(--sn-stylekit-background-color);
