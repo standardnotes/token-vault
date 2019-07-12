@@ -1,19 +1,17 @@
 {
-  "name": "authenticator-editor",
+  "name": "sn-token-safe",
   "version": "1.0.0",
   "main": "dist/dist.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base app"
   },
-  "dependencies": {
+  "devDependencies": {
     "immutability-helper": "^3.0.1",
     "jsqr": "^1.2.0",
     "notp": "^2.0.3",
     "otplib": "^11.0.1",
-    "regenerator-runtime": "^0.13.2"
-  },
-  "devDependencies": {
+    "regenerator-runtime": "^0.13.2",
     "babel-core": "^6.26.3",
     "babel-eslint": "7.x",
     "babel-loader": "6.x",
@@ -30,7 +28,7 @@
     "react": "15.x",
     "react-dom": "15.x",
     "sass-loader": "^6.0.6",
-    "sn-components-api": "1.1.8",
+    "sn-components-api": "1.2.7",
     "sn-editor-kit": "1.0.5",
     "sn-stylekit": "2.0.15",
     "style-loader": "~0.13.1",

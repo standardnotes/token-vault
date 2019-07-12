@@ -1,6 +1,6 @@
 {
   "identifier": "org.yourdomain.my-extension",
-  "name": "Authenticator Editor",
+  "name": "Token Safe",
   "content_type": "SN|Component",
   "area": "editor-editor",
   "version": "1.0.0",
