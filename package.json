@@ -1,10 +1,13 @@
 {
   "name": "sn-token-vault",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/dist.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base app"
+  },
+  "sn": {
+    "main": "dist/index.html"
   },
   "devDependencies": {
     "immutability-helper": "^3.0.1",
