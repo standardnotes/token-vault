@@ -1,5 +1,5 @@
 {
-  "name": "sn-token-safe",
+  "name": "sn-token-vault",
   "version": "1.0.0",
   "main": "dist/dist.js",
   "scripts": {

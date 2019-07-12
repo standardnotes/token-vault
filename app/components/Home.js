@@ -53,9 +53,7 @@ export default class Home extends React.Component {
           entries = JSON.parse(text);
         } finally {
           return {
-            html: `<div><strong>Authenticator entries</strong>: ${
-              entries.length
-            }</div>`
+            html: `<div><strong>${entries.length}</strong> TokenVault Entries </div>`
           };
         }
       },
