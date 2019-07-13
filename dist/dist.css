@@ -1943,19 +1943,43 @@ html {
   font-style: italic;
   overflow: hidden; }
 
+.auth-copy-notification {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 200; }
+  .auth-copy-notification .sk-panel {
+    border-radius: 4px;
+    padding: 4px; }
+  .auth-copy-notification.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 200ms ease-in; }
+  .auth-copy-notification.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 500ms, opacity 500ms ease-out; }
+
 /* entry default styles */
 .auth-entry {
   display: flex;
   align-items: center; }
+  @media screen and (max-width: 480px) {
+    .auth-entry .auth-details {
+      flex-direction: column !important;
+      align-items: flex-start !important; } }
   .auth-entry .auth-details {
     margin-bottom: 8px;
     flex: 1;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center; }
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0; }
     .auth-entry .auth-details .auth-info {
-      flex: 1 1 auto;
-      margin: 4px 0; }
+      margin: 4px 0;
+      min-width: inherit; }
       .auth-entry .auth-details .auth-info .auth-service {
         font-size: var(--sn-stylekit-font-size-h1);
         font-weight: bold;
@@ -1964,7 +1988,8 @@ html {
         line-height: 1.5rem;
         font-size: var(--sn-stylekit-font-size-p);
         text-align: left;
-        font-weight: normal; }
+        font-weight: normal;
+        word-wrap: break-word; }
     .auth-entry .auth-details .auth-token-info {
       display: flex;
       align-items: center;
