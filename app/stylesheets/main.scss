@@ -88,6 +88,33 @@ html {
   }
 }
 
+// Copy token notification
+.auth-copy-notification {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 200;
+
+  .sk-panel {
+    border-radius: 4px;
+    padding: 4px;
+  }
+
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+  }
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 500ms, opacity 500ms ease-out;
+  }
+}
+
+
 /* entry default styles */
 .auth-entry {
   display: flex;
@@ -228,6 +255,7 @@ html {
   // Injected in CountdownPie.js
   // animation: opa 30s steps(1, end) infinite;
 }
+
 // Injected in CountdownPie.js
 // @keyframes rota {
 //   0% {

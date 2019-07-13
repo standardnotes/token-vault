@@ -61,6 +61,7 @@ export default class AuthEntry extends React.Component {
     textField.select();
     document.execCommand('copy');
     textField.remove();
+    this.props.onCopyToken();
   };
 
   render() {
