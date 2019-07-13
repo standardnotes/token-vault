@@ -93,16 +93,26 @@ html {
   display: flex;
   align-items: center;
 
+  // Collapse on mobile
+  @media screen and (max-width: 480px) {
+    .auth-details {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+  }
+
   .auth-details {
     margin-bottom: 8px;
     flex: 1;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    min-width: 0;
 
     .auth-info {
-      flex: 1 1 auto;
       margin: 4px 0;
+      min-width: inherit;
 
       .auth-service {
         font-size: var(--sn-stylekit-font-size-h1);
@@ -115,6 +125,7 @@ html {
         font-size: var(--sn-stylekit-font-size-p);
         text-align: left;
         font-weight: normal;
+        word-wrap: break-word;
       }
     }
 
@@ -228,6 +239,7 @@ html {
   // Injected in CountdownPie.js
   // animation: opa 30s steps(1, end) infinite;
 }
+
 // Injected in CountdownPie.js
 // @keyframes rota {
 //   0% {
