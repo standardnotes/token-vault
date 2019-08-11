@@ -16,11 +16,16 @@ export default class EditEntry extends React.Component {
     };
   }
 
+  formatSecret(secret) {
+    return secret.replace(/\s/g, '').toUpperCase();
+  }
+
   handleInputChange = event => {
     const target = event.target;
     const name = target.name;
 
-    const value = name === 'secret' ? target.value.toUpperCase() : target.value;
+    const value =
+      name === 'secret' ? this.formatSecret(target.value) : target.value;
 
     this.setState(state => ({
       entry: { ...state.entry, [name]: value }
@@ -41,7 +46,7 @@ export default class EditEntry extends React.Component {
       entry: {
         service: labelIssuer || queryIssuer || '',
         account,
-        secret
+        secret: this.formatSecret(secret)
       }
     });
   };
