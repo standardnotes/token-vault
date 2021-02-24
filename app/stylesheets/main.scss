@@ -34,8 +34,12 @@ html {
   min-height: 26px;
   padding: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: stretch;
+  
+  input.sk-input {
+    margin: 0;
+  }
 }
 
 #content {

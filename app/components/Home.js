@@ -13,7 +13,8 @@ const initialState = {
   editMode: false,
   editEntry: null,
   confirmRemove: false,
-  displayCopy: false
+  displayCopy: false,
+  searchTerm: ''
 };
 
 export default class Home extends React.Component {
@@ -174,14 +175,23 @@ export default class Home extends React.Component {
     }, 2000);
   };
 
+  onSearch = event => {
+    this.setState({ searchTerm: event.target.value })
+  }
+
   render() {
     const editEntry = this.state.editEntry || {};
+
+    this.state.entries.map(entry => {
+      entry.filtered = Object.keys(entry).some(key => String(entry[key]).toLowerCase().includes(this.state.searchTerm.toLowerCase())) || !this.state.searchTerm
+    })
+
     return (
       <div className="sn-component">
         <div
           className={`auth-copy-notification ${
             this.state.displayCopy ? 'visible' : 'hidden'
-          }`}
+            }`}
         >
           <div className="sk-panel">
             <div className="sk-font-small sk-bold">
@@ -191,6 +201,11 @@ export default class Home extends React.Component {
         </div>
         {this.state.parseError && <DataErrorAlert />}
         <div id="header">
+            <input className="sk-input contrast" 
+              placeholder="Search" 
+              value={this.state.searchTerm} 
+              onChange={this.onSearch} 
+            />
           <div className="sk-button-group">
             <div onClick={this.onAddNew} className="sk-button info">
               <div className="sk-label">Add New</div>
@@ -207,13 +222,13 @@ export default class Home extends React.Component {
               onCancel={this.onCancel}
             />
           ) : (
-            <ViewEntries
-              entries={this.state.entries}
-              onEdit={this.onEdit}
-              onRemove={this.onRemove}
-              onCopyToken={this.onCopyToken}
-            />
-          )}
+              <ViewEntries
+                entries={this.state.entries}
+                onEdit={this.onEdit}
+                onRemove={this.onRemove}
+                onCopyToken={this.onCopyToken}
+              />
+            )}
           {this.state.confirmRemove && (
             <ConfirmDialog
               title={`Remove ${editEntry.entry.service}`}
