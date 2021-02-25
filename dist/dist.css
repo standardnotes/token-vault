@@ -1900,8 +1900,13 @@ html {
   min-height: 26px;
   padding: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end; }
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between; }
+  #header input.sk-input {
+    margin: 0;
+    padding: 0 0.8rem;
+    width: 40vh; }
 
 #content {
   background-color: var(--sn-stylekit-contrast-background-color);

@@ -1,6 +1,6 @@
 {
   "name": "sn-token-vault",
-  "version": "1.0.5",
+  "version": "1.1.5",
   "main": "dist/dist.js",
   "scripts": {
     "build": "webpack",
@@ -10,11 +10,6 @@
     "main": "dist/index.html"
   },
   "devDependencies": {
-    "immutability-helper": "^3.0.1",
-    "jsqr": "^1.2.0",
-    "notp": "^2.0.3",
-    "otplib": "^11.0.1",
-    "regenerator-runtime": "^0.13.2",
     "babel-core": "^6.26.3",
     "babel-eslint": "7.x",
     "babel-loader": "6.x",
@@ -26,10 +21,15 @@
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "~0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
+    "immutability-helper": "^3.0.1",
+    "jsqr": "^1.2.0",
     "node-sass": "^4.12.0",
+    "notp": "^2.0.3",
     "open-browser-webpack-plugin": "0.0.5",
+    "otplib": "^11.0.1",
     "react": "15.x",
     "react-dom": "15.x",
+    "regenerator-runtime": "^0.13.2",
     "sass-loader": "^6.0.6",
     "sn-components-api": "1.2.7",
     "sn-editor-kit": "1.0.6",
