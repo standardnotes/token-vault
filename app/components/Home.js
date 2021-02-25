@@ -185,13 +185,12 @@ export default class Home extends React.Component {
       entries.map(entry => {
         const matches = Object.keys(entry).some(key => String(entry[key]).toLowerCase().includes(searchTerm))
         
-        entry.filtered = matches || !searchTerm
+        entry.filtered = !matches
       })
 
       return {
         entries
       }
-
     })
   }
 

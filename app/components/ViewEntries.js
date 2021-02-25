@@ -4,7 +4,7 @@ import AuthEntry from './AuthEntry';
 const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken }) => (
   <div className="auth-list">
     {entries.map((entry, idx) => (
-      entry.filtered && 
+      !entry.filtered && 
       <AuthEntry
         key={idx}
         id={idx}
