@@ -36,9 +36,12 @@ html {
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  justify-content: space-between;
   
   input.sk-input {
     margin: 0;
+    padding: 0 0.8rem;
+    width: 40vh;
   }
 }
 
