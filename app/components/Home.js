@@ -177,14 +177,26 @@ export default class Home extends React.Component {
 
   onSearch = event => {
     this.setState({ searchTerm: event.target.value })
+
+    this.setState(state => {
+      const entries = state.entries
+      const searchTerm = state.searchTerm.toLowerCase()
+
+      entries.map(entry => {
+        const matches = Object.keys(entry).some(key => String(entry[key]).toLowerCase().includes(searchTerm))
+        
+        entry.filtered = matches || !searchTerm
+      })
+
+      return {
+        entries
+      }
+
+    })
   }
 
   render() {
     const editEntry = this.state.editEntry || {};
-
-    this.state.entries.map(entry => {
-      entry.filtered = Object.keys(entry).some(key => String(entry[key]).toLowerCase().includes(this.state.searchTerm.toLowerCase())) || !this.state.searchTerm
-    })
 
     return (
       <div className="sn-component">
