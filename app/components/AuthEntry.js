@@ -1,7 +1,8 @@
 import React from 'react';
-import { totp } from '../lib/otp';
-import CountdownPie from './CountdownPie';
-import AuthMenu from './AuthMenu';
+import PropTypes from 'prop-types';
+import { totp } from '@Lib/otp';
+import CountdownPie from '@Components/CountdownPie';
+import AuthMenu from '@Components/AuthMenu';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class AuthEntry extends React.Component {
 
   updateToken = async () => {
     const { secret } = this.props.entry;
-    const token = await totp.gen(secret);
+    const token = totp.gen(secret);
 
     const timeLeft = this.getTimeLeft();
     this.setState({
@@ -29,9 +30,9 @@ export default class AuthEntry extends React.Component {
     });
 
     this.timer = setTimeout(this.updateToken, timeLeft * 1000);
-  };
+  }
 
-  componentWillReceiveProps(nextProps) {
+  getSnapshotBeforeUpdate(nextProps) {
     // If the secret changed make sure to recalculate token
     if (nextProps.entry.secret !== this.props.entry.secret) {
       clearTimeout(this.timer);
@@ -52,9 +53,9 @@ export default class AuthEntry extends React.Component {
       name,
       value: target.value
     });
-  };
+  }
 
-  copyToken = event => {
+  copyToken = () => {
     const textField = document.createElement('textarea');
     textField.innerText = this.state.token;
     document.body.appendChild(textField);
@@ -62,7 +63,7 @@ export default class AuthEntry extends React.Component {
     document.execCommand('copy');
     textField.remove();
     this.props.onCopyToken();
-  };
+  }
 
   render() {
     const { service, account, notes } = this.props.entry;
@@ -104,3 +105,12 @@ export default class AuthEntry extends React.Component {
     );
   }
 }
+
+AuthEntry.propTypes = {
+  id: PropTypes.any.isRequired,
+  entry: PropTypes.object.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onEntryChange: PropTypes.func.isRequired,
+  onCopyToken: PropTypes.func.isRequired
+};
