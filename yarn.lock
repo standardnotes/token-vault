@@ -923,7 +923,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@standardnotes/component-relay@^2.0.3":
+"@standardnotes/component-relay@2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@standardnotes/component-relay/-/component-relay-2.0.3.tgz#bdf9ccbc2cfe9bfd6dcb1f478202c19e38a4b1fc"
   integrity sha512-Gx8L1GEdR4UnGkP464/fyRxQ+SPxucBqItRsvJCZm0JgGxrfaQKJrI0DOSQs/Hn5bpgQOo00Fxe3428pSkXcPA==
@@ -5799,10 +5799,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-sn-editor-kit@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/sn-editor-kit/-/sn-editor-kit-1.0.6.tgz"
-  integrity sha512-6eMjCPievemUpgjsJlOZDfA7TsdizkgdC/OsD4G8OTLvdnvsup2wf6bA1RwgKycvkZqWo5IKbpcj7rkewAqTAA==
+sn-editor-kit@1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/sn-editor-kit/-/sn-editor-kit-1.0.9.tgz#e37e884dfa820db0bb508192623ff7f3efc5f0e2"
+  integrity sha512-Ryx7h91dGigDAqrwZ67n74d0g7M3E1xbQsewoY/4b7s7u4D5u9JMq4QvBZtBOdossthlLtnU5nJ41GjhcmmpQQ==
 
 sn-stylekit@2.0.15:
   version "2.0.15"
