@@ -47,7 +47,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      stylekit: path.join(__dirname, 'node_modules/sn-stylekit/dist/stylekit.css')
+      stylekit: path.resolve(__dirname, 'node_modules/sn-stylekit/dist/stylekit.css'),
+      '@Components': path.resolve(__dirname, 'app/components'),
+      '@Lib': path.resolve(__dirname, 'app/lib')
     }
   },
   plugins: [
@@ -55,7 +57,7 @@ module.exports = {
       filename: "dist.css"
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'app/index.html'),
+      template: path.resolve(__dirname, 'app/index.html'),
       filename: 'index.html'
     })
   ]

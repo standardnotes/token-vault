@@ -7,7 +7,7 @@ module.exports = merge(config, {
   devtool: 'cheap-source-map',
   devServer: {
     port: 8001,
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, 'dist'),
     disableHostCheck: true,
     historyApiFallback: true,
     watchOptions: { aggregateTimeout: 300, poll: 1000 },
