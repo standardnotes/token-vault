@@ -75,7 +75,7 @@ export default class EditEntry extends React.Component {
               <input
                 name="service"
                 className="sk-input contrast"
-                placeholder="Service"
+                placeholder="Name"
                 value={entry.service}
                 onChange={this.handleInputChange}
                 type="text"
@@ -96,7 +96,6 @@ export default class EditEntry extends React.Component {
                 value={entry.secret}
                 onChange={this.handleInputChange}
                 type="text"
-                pattern={secretPattern}
                 required
               />
               <input

@@ -1,0 +1,11 @@
+1) Change 'Service' to 'Name'
+2) Make password anything
+3) Add ability to do dropdown to TOTP
+4) Make it so click to see items
+5) Make it so list multiple URL's
+6) Add expiry
+7) Add reordering capability
+8) Add search capability
+9) Add colour theming 
+10) Add "Folders"
+11) Add ability to auto fill from SN via webextension

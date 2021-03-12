@@ -5,11 +5,13 @@ import ViewEntries from './ViewEntries';
 import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
 import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
+import DataImportEntry from './DataImportEntry';
 
 const initialState = {
   text: '',
   entries: [],
   parseError: false,
+  importMode: false,
   editMode: false,
   editEntry: null,
   confirmRemove: false,
@@ -59,7 +61,7 @@ export default class Home extends React.Component {
           };
         }
       },
-      clearUndoHistory: () => {},
+      clearUndoHistory: () => { },
       getElementsBySelector: () => []
     });
 
@@ -122,6 +124,23 @@ export default class Home extends React.Component {
     });
   };
 
+  onImportNew = () => {
+    this.setState({
+      importMode: true,
+    })
+  }
+
+  attemptImport = (file) => {
+    let fr = new FileReader();
+    fr.readAsText(file, 'UTF-8');
+    console.log(fr.result);
+    window.result = fr;
+    console.log(JSON.parse(fr.result));
+    this.setState({
+      importMode: false,
+    })
+  }
+
   onEdit = id => {
     this.setState(state => ({
       editMode: true,
@@ -179,9 +198,8 @@ export default class Home extends React.Component {
     return (
       <div className="sn-component">
         <div
-          className={`auth-copy-notification ${
-            this.state.displayCopy ? 'visible' : 'hidden'
-          }`}
+          className={`auth-copy-notification ${this.state.displayCopy ? 'visible' : 'hidden'
+            }`}
         >
           <div className="sk-panel">
             <div className="sk-font-small sk-bold">
@@ -190,10 +208,19 @@ export default class Home extends React.Component {
           </div>
         </div>
         {this.state.parseError && <DataErrorAlert />}
+        {this.state.importMode &&
+          <DataImportEntry
+            onConfirm={() => this.attemptImport}
+            onCancel={() => this.setState({ importMode: false })}
+          />
+        }
         <div id="header">
           <div className="sk-button-group">
             <div onClick={this.onAddNew} className="sk-button info">
               <div className="sk-label">Add New</div>
+            </div>
+            <div onClick={this.onImportNew} className="sk-button info">
+              <div className="sk-label">Import</div>
             </div>
           </div>
         </div>
