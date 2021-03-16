@@ -133,7 +133,7 @@ export default class EditEntry extends React.Component {
 }
 
 EditEntry.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   entry: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired
