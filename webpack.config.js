@@ -11,7 +11,7 @@ module.exports = {
     filename: 'dist.js'
   },
   externals: {
-    'filesafe-js': 'filesafe-js'
+    'filesafe-js': {}
   },
   module: {
     rules: [
