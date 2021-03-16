@@ -32,9 +32,9 @@ export default class AuthEntry extends React.Component {
     this.timer = setTimeout(this.updateToken, timeLeft * 1000);
   }
 
-  getSnapshotBeforeUpdate(nextProps) {
+  componentDidUpdate(prevProps) {
     // If the secret changed make sure to recalculate token
-    if (nextProps.entry.secret !== this.props.entry.secret) {
+    if (prevProps.entry.secret !== this.props.entry.secret) {
       clearTimeout(this.timer);
       this.timer = setTimeout(this.updateToken, 0);
     }
@@ -111,6 +111,6 @@ AuthEntry.propTypes = {
   entry: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  onEntryChange: PropTypes.func.isRequired,
+  onEntryChange: PropTypes.func,
   onCopyToken: PropTypes.func.isRequired
 };
