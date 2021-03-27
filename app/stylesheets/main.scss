@@ -90,7 +90,7 @@ html {
 
 // Copy token notification
 .auth-copy-notification {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 20px;
   z-index: 200;
