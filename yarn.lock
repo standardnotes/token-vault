@@ -923,7 +923,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@standardnotes/editor-kit@^2.0.1":
+"@standardnotes/editor-kit@2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@standardnotes/editor-kit/-/editor-kit-2.0.1.tgz#e35a84c4bb41976f23295fd4d264dd688ad850c1"
   integrity sha512-7ca3/+R3ZNktcOIiAsEYTCo6WMQSjC/+Is+1V4B9xgVTDfeJSZBshCZmSZXahg2mCse1kvdA+hMgOeaxeaNCeA==
