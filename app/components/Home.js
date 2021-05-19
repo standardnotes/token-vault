@@ -14,7 +14,7 @@ const initialState = {
   editEntry: null,
   confirmRemove: false,
   displayCopy: false,
-  canEdit: false
+  canEdit: true
 };
 
 export default class Home extends React.Component {
