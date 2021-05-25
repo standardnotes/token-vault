@@ -77,7 +77,15 @@ export default class AuthEntry extends React.Component {
     }
 
     return (
-      <div className="sk-notification sk-base-custom" style={entryStyle}>
+      <div
+        {...this.props}
+        className="sk-notification sk-base-custom"
+        style={{
+          ...entryStyle,
+          ...this.props.style
+        }}
+        ref={this.props.innerRef}
+      >
         <div className="auth-entry">
           <div className="auth-details">
             <div className="auth-info">
@@ -120,5 +128,7 @@ AuthEntry.propTypes = {
   onRemove: PropTypes.func.isRequired,
   onEntryChange: PropTypes.func,
   onCopyToken: PropTypes.func.isRequired,
-  canEdit: PropTypes.bool.isRequired
+  canEdit: PropTypes.bool.isRequired,
+  innerRef: PropTypes.func.isRequired,
+  style: PropTypes.object.isRequired
 };

@@ -191,6 +191,12 @@ export default class Home extends React.Component {
     }, 2000);
   };
 
+  updateEntries = (entries) => {
+    this.setState({
+      entries
+    });
+  };
+
   render() {
     const editEntry = this.state.editEntry || {};
     const { canEdit, displayCopy, parseError, editMode, entries, confirmRemove } = this.state;
@@ -232,6 +238,7 @@ export default class Home extends React.Component {
               onRemove={this.onRemove}
               onCopyToken={this.onCopyToken}
               canEdit={canEdit}
+              updateEntries={this.updateEntries}
             />
           )}
           {confirmRemove && (
