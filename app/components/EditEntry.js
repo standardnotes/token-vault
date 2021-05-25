@@ -4,6 +4,20 @@ import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
 
+const defaultBgColor = '#fff';
+const defaultColorOptions = [
+  '#FFB299',
+  '#FFEBB5',
+  '#7BDCB5',
+  '#BDD684',
+  '#799AE0',
+  '#7ECEFD',
+  '#ABB8C3',
+  '#F27977',
+  '#FFAFAF',
+  '#D5C8EB'
+];
+
 export default class EditEntry extends React.Component {
   static defaultProps = {
     entry: {}
@@ -91,21 +105,7 @@ export default class EditEntry extends React.Component {
   };
 
   render() {
-    const { id, entry, showColorPicker: showColorPicker } = this.state;
-
-    const defaultBgColor = '#fff';
-    const defaultColorOptions = [
-      '#FFB299',
-      '#FFEBB5',
-      '#7BDCB5',
-      '#BDD684',
-      '#799AE0',
-      '#7ECEFD',
-      '#ABB8C3',
-      '#F27977',
-      '#FFAFAF',
-      '#D5C8EB'
-    ];
+    const { id, entry, showColorPicker } = this.state;
 
     const swatchStyle = {
       width: '36px',
