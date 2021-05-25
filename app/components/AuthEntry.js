@@ -66,13 +66,18 @@ export default class AuthEntry extends React.Component {
   }
 
   render() {
-    const { service, account, notes } = this.props.entry;
+    const { service, account, notes, color } = this.props.entry;
     const { id, onEdit, onRemove, canEdit } = this.props;
     const { token } = this.state;
     const timeLeft = this.getTimeLeft();
 
+    const entryStyle = {};
+    if (color) {
+      entryStyle.backgroundColor = color;
+    }
+
     return (
-      <div className="sk-notification sk-base">
+      <div className="sk-notification sk-base-custom" style={entryStyle}>
         <div className="auth-entry">
           <div className="auth-details">
             <div className="auth-info">
