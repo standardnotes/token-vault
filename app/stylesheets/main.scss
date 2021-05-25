@@ -218,7 +218,6 @@ html {
   position: relative;
   width: 24px;
   height: 24px;
-  background: var(--sn-stylekit-background-color);
 }
 
 .countdown-pie,
@@ -269,6 +268,44 @@ html {
   z-index: 30;
   // Injected in CountdownPie.js
   // animation: opa 30s steps(1, end) infinite;
+}
+
+.color-picker-swatch {
+  padding: 5px;
+  background: var(--sn-stylekit-background-color);
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.color-picker-popover {
+  position: absolute;
+  z-index: 200;
+  right: 35px;
+  top: 125px;
+}
+
+.color-picker-cover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.sk-base-custom {
+  color: var(--sn-stylekit-foreground-color);
+  position: relative;
+  background-color: var(--sn-stylekit-background-color);
+  overflow: hidden;
+  border-radius: var(--sn-stylekit-general-border-radius);
+  border-color: var(--sn-stylekit-border-color);
+  border: 1px solid var(--sn-stylekit-border-color);
 }
 
 // Injected in CountdownPie.js

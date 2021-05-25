@@ -2,6 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
+import { TwitterPicker } from 'react-color';
+
+const defaultBgColor = '#fff';
+const defaultColorOptions = [
+  '#FFB299',
+  '#FFEBB5',
+  '#7BDCB5',
+  '#BDD684',
+  '#799AE0',
+  '#7ECEFD',
+  '#ABB8C3',
+  '#F27977',
+  '#FFAFAF',
+  '#D5C8EB'
+];
 
 export default class EditEntry extends React.Component {
   static defaultProps = {
@@ -13,7 +28,8 @@ export default class EditEntry extends React.Component {
 
     this.state = {
       id: this.props.id,
-      entry: this.props.entry
+      entry: this.props.entry,
+      showColorPicker: false
     };
   }
 
@@ -25,16 +41,48 @@ export default class EditEntry extends React.Component {
     const target = event.target;
     const name = target.name;
 
-    const value =
-      name === 'secret' ? this.formatSecret(target.value) : target.value;
+    const value = name === 'secret' ?
+      this.formatSecret(target.value) : target.value;
 
     this.setState(state => ({
-      entry: { ...state.entry, [name]: value }
+      entry: {
+        ...state.entry,
+        [name]: value
+      }
     }));
   };
 
-  onSave = e => {
-    e.preventDefault();
+  handleColorChange = color => {
+    this.setState(state => ({
+      entry: {
+        ...state.entry,
+        color: color.hex
+      }
+    }));
+  };
+
+  handleSwatchClick = () => {
+    this.setState({
+      showColorPicker: !this.state.showColorPicker
+    });
+  };
+
+  handleColorPickerClose = () => {
+    this.setState({
+      showColorPicker: false
+    });
+  };
+
+  removeColor = () => {
+    this.setState((state) => {
+      delete state.entry.color;
+      return {
+        entry: state.entry
+      };
+    });
+  };
+
+  onSave = () => {
     const { id, entry } = this.state;
     this.props.onSave({ id, entry });
   };
@@ -57,7 +105,14 @@ export default class EditEntry extends React.Component {
   };
 
   render() {
-    const { id, entry } = this.state;
+    const { id, entry, showColorPicker } = this.state;
+
+    const swatchStyle = {
+      width: '36px',
+      height: '14px',
+      borderRadius: '2px',
+      background: `${entry.color ?? defaultBgColor}`,
+    };
 
     return (
       <div className="auth-edit sk-panel">
@@ -65,14 +120,37 @@ export default class EditEntry extends React.Component {
           <div className="sk-panel-section">
             <div className="sk-panel-section-title sk-panel-row">
               {id != null ? 'Edit entry' : 'Add new entry'}
-              {id == null && (
+              <div className="sk-panel-section-title sk-panel-row">
+                {entry.color && (
+                  <div className="sk-button danger" onClick={this.removeColor}>
+                    <div className="sk-label">Clear color</div>
+                  </div>
+                )}
+                <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
+                  <div style={swatchStyle} />
+                </div>
+              </div>
+            </div>
+            {showColorPicker && (
+              <div className="color-picker-popover">
+                <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
+                <TwitterPicker
+                  color={entry.color ?? defaultBgColor}
+                  colors={defaultColorOptions}
+                  onChangeComplete={this.handleColorChange}
+                  triangle="top-right"
+                />
+              </div>
+            )}
+            {id == null && (
+              <div className="sk-panel-section sk-panel-hero align-items-center">
                 <QRCodeReader
                   onSuccess={this.onQRCodeSuccess}
                   onError={this.onQRCodeError}
                 />
-              )}
-            </div>
-            <form onSubmit={this.onSave}>
+              </div>
+            )}
+            <form>
               <input
                 name="service"
                 className="sk-input contrast"
@@ -110,18 +188,14 @@ export default class EditEntry extends React.Component {
               />
               <div className="sk-panel-row">
                 <div className="sk-button-group stretch">
-                  <button
-                    type="button"
-                    onClick={this.props.onCancel}
-                    className="sk-button neutral"
-                  >
+                  <div className="sk-button neutral" onClick={this.props.onCancel}>
                     <div className="sk-label">Cancel</div>
-                  </button>
-                  <button type="submit" className="sk-button info">
+                  </div>
+                  <div className="sk-button info" onClick={this.onSave}>
                     <div className="sk-label">
                       {id != null ? 'Save' : 'Create'}
                     </div>
-                  </button>
+                  </div>
                 </div>
               </div>
             </form>

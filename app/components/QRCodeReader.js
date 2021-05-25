@@ -39,7 +39,7 @@ export default class QRCodeReader extends React.Component {
 
   render() {
     return (
-      <div className="file sk-button info">
+      <div className="sk-button info">
         <label className="no-style">
           <input
             type="file"
