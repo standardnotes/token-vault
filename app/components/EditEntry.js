@@ -130,18 +130,18 @@ export default class EditEntry extends React.Component {
                   <div style={swatchStyle} />
                 </div>
               </div>
-              {showColorPicker && (
-                <div className="color-picker-popover">
-                  <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
-                  <TwitterPicker
-                    color={entry.color ?? defaultBgColor}
-                    colors={defaultColorOptions}
-                    onChangeComplete={this.handleColorChange}
-                    triangle="top-right"
-                  />
-                </div>
-              )}
             </div>
+            {showColorPicker && (
+              <div className="color-picker-popover">
+                <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
+                <TwitterPicker
+                  color={entry.color ?? defaultBgColor}
+                  colors={defaultColorOptions}
+                  onChangeComplete={this.handleColorChange}
+                  triangle="top-right"
+                />
+              </div>
+            )}
             {id == null && (
               <div className="sk-panel-section sk-panel-hero align-items-center">
                 <QRCodeReader
