@@ -211,6 +211,20 @@ html {
       z-index: 200;
     }
   }
+
+  .auth-drag-indicator-container {
+    color: var(--sn-stylekit-contrast-foreground-color);
+    overflow: visible;
+    margin-bottom: 8px;
+    align-self: center;
+    padding-right: 22px;
+
+    .sk-menu-panel {
+      position: absolute;
+      left: 0;
+      z-index: 200;
+    }
+  }
 }
 
 /* spinner */

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { totp } from '@Lib/otp';
 import CountdownPie from '@Components/CountdownPie';
 import AuthMenu from '@Components/AuthMenu';
+import DragIndicator from '@Components/DragIndicator';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
@@ -90,6 +91,11 @@ export default class AuthEntry extends React.Component {
         ref={innerRef}
       >
         <div className="auth-entry">
+          {canEdit && (
+            <div className="auth-drag-indicator-container">
+              <DragIndicator />
+            </div>
+          )}
           <div className="auth-details">
             <div className="auth-info">
               <div className="auth-service">{service}</div>
