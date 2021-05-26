@@ -128,7 +128,7 @@ html {
   @media screen and (max-width: 480px) {
     .auth-details {
       flex-direction: column !important;
-      align-items: flex-start !important;
+      align-items: center !important;
     }
   }
 
@@ -203,7 +203,7 @@ html {
     color: var(--sn-stylekit-contrast-foreground-color);
     overflow: visible;
     margin-bottom: 8px;
-    align-self: flex-start;
+    align-self: center;
 
     .sk-menu-panel {
       position: absolute;
