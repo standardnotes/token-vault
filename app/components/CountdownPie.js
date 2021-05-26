@@ -93,11 +93,13 @@ function useRotateAnimation(token, left, total) {
   );
 }
 
-const CountdownPie = ({ token, left, total }) => {
+const CountdownPie = ({ token, left, total, bgColor }) => {
   useRotateAnimation(token, left, total);
 
   return (
-    <div className="countdown-pie">
+    <div className="countdown-pie" style={{
+      backgroundColor: bgColor
+    }}>
       <div
         className="pie spinner"
         style={{
@@ -125,6 +127,7 @@ CountdownPie.propTypes = {
   token: PropTypes.string.isRequired,
   left: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
+  bgColor: PropTypes.string
 };
 
 export default CountdownPie;

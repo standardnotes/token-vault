@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import AuthEntry from '@Components/AuthEntry';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const getItemStyle = (isDragging, draggableStyle, entryColor) => ({
-  userSelect: 'none',
-  backgroup: isDragging ? 'lightgreen' : entryColor,
-  ...draggableStyle
-});
-
-const reorder = (list, startIndex, endIndex) => {
+const reorderEntries = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -24,13 +18,13 @@ const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEn
       return;
     }
   
-    const items = reorder(
+    const orderedEntries = reorderEntries(
       entries,
       result.source.index,
       result.destination.index
     );
   
-    updateEntries(items);
+    updateEntries(orderedEntries);
   };
 
   return (
@@ -44,14 +38,10 @@ const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEn
           >
             {entries.map((entry, index) => (
               <Draggable key={`${entry.service}-${index}`} draggableId={`${entry.service}-${index}`} index={index}>
-                {(provided, snapshot) => (
+                {(provided) => (
                   <AuthEntry
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
                     innerRef={provided.innerRef}
                     key={index}
                     id={index}

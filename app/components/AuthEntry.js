@@ -67,7 +67,7 @@ export default class AuthEntry extends React.Component {
 
   render() {
     const { service, account, notes, color } = this.props.entry;
-    const { id, onEdit, onRemove, canEdit } = this.props;
+    const { id, onEdit, onRemove, canEdit, style, innerRef, ...rest } = this.props;
     const { token } = this.state;
     const timeLeft = this.getTimeLeft();
 
@@ -76,15 +76,18 @@ export default class AuthEntry extends React.Component {
       entryStyle.backgroundColor = color;
     }
 
+    const divProps = Object.assign({}, rest);
+    delete divProps.onCopyToken;
+
     return (
       <div
-        {...this.props}
+        {...divProps}
         className="sk-notification sk-base-custom"
         style={{
           ...entryStyle,
-          ...this.props.style
+          ...style
         }}
-        ref={this.props.innerRef}
+        ref={innerRef}
       >
         <div className="auth-entry">
           <div className="auth-details">
@@ -98,7 +101,7 @@ export default class AuthEntry extends React.Component {
                 <div>{token.substr(3, 3)}</div>
               </div>
               <div className="auth-countdown">
-                <CountdownPie token={token} left={timeLeft} total={30} />
+                <CountdownPie token={token} left={timeLeft} total={30} bgColor={color} />
               </div>
             </div>
           </div>
