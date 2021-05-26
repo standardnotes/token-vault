@@ -29,7 +29,7 @@ const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEn
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
+      <Droppable droppableId="droppable" isDropDisabled={!canEdit}>
         {(provided) => (
           <div
             {...provided.droppableProps}
@@ -37,7 +37,12 @@ const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEn
             className="auth-list"
           >
             {entries.map((entry, index) => (
-              <Draggable key={`${entry.service}-${index}`} draggableId={`${entry.service}-${index}`} index={index}>
+              <Draggable
+                key={`${entry.service}-${index}`}
+                draggableId={`${entry.service}-${index}`}
+                index={index}
+                isDragDisabled={!canEdit}
+              >
                 {(provided) => (
                   <AuthEntry
                     {...provided.draggableProps}
