@@ -9,7 +9,8 @@ export default class AuthEntry extends React.Component {
     super(props);
 
     this.state = {
-      token: ''
+      token: '',
+      timeLeft: 0
     };
 
     this.updateToken();
@@ -26,7 +27,8 @@ export default class AuthEntry extends React.Component {
 
     const timeLeft = this.getTimeLeft();
     this.setState({
-      token
+      token,
+      timeLeft
     });
 
     this.timer = setTimeout(this.updateToken, timeLeft * 1000);
@@ -68,8 +70,7 @@ export default class AuthEntry extends React.Component {
   render() {
     const { service, account, notes, color } = this.props.entry;
     const { id, onEdit, onRemove, canEdit } = this.props;
-    const { token } = this.state;
-    const timeLeft = this.getTimeLeft();
+    const { token, timeLeft } = this.state;
 
     const entryStyle = {};
     if (color) {
@@ -90,7 +91,7 @@ export default class AuthEntry extends React.Component {
                 <div>{token.substr(3, 3)}</div>
               </div>
               <div className="auth-countdown">
-                <CountdownPie token={token} left={timeLeft} total={30} />
+                <CountdownPie token={token} timeLeft={timeLeft} total={30} />
               </div>
             </div>
           </div>
