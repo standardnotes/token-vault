@@ -281,8 +281,8 @@ export default class Home extends React.Component {
           )}
           {confirmReorder && (
             <ConfirmDialog
-              title={'Reorder entries'}
-              message="Are you sure you want to reorder entries?"
+              title={'Auto-sort entries'}
+              message="Are you sure you want to auto-sort all entries alphabetically based on service name?"
               onConfirm={this.reorderEntries}
               onCancel={this.onCancel}
             />
