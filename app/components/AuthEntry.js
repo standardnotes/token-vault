@@ -70,7 +70,7 @@ export default class AuthEntry extends React.Component {
 
   render() {
     const { service, account, notes, color } = this.props.entry;
-    const { id, onEdit, onRemove, canEdit, style, innerRef, ...rest } = this.props;
+    const { id, onEdit, onRemove, canEdit, style, innerRef, ...divProps } = this.props;
     const { token, timeLeft } = this.state;
 
     const entryStyle = {};
@@ -78,7 +78,6 @@ export default class AuthEntry extends React.Component {
       entryStyle.backgroundColor = color;
     }
 
-    const divProps = Object.assign({}, rest);
     delete divProps.onCopyToken;
 
     return (
