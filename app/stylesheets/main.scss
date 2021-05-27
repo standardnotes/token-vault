@@ -128,7 +128,7 @@ html {
   @media screen and (max-width: 480px) {
     .auth-details {
       flex-direction: column !important;
-      align-items: flex-start !important;
+      align-items: center !important;
     }
   }
 
@@ -203,13 +203,21 @@ html {
     color: var(--sn-stylekit-contrast-foreground-color);
     overflow: visible;
     margin-bottom: 8px;
-    align-self: flex-start;
+    align-self: center;
 
     .sk-menu-panel {
       position: absolute;
       right: 0;
       z-index: 200;
     }
+  }
+
+  .auth-drag-indicator-container {
+    color: var(--sn-stylekit-contrast-foreground-color);
+    overflow: visible;
+    margin-bottom: 8px;
+    align-self: center;
+    padding-right: 22px;
   }
 }
 
@@ -218,6 +226,7 @@ html {
   position: relative;
   width: 24px;
   height: 24px;
+  background: var(--sn-stylekit-background-color);
 }
 
 .countdown-pie,

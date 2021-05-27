@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { totp } from '@Lib/otp';
 import CountdownPie from '@Components/CountdownPie';
 import AuthMenu from '@Components/AuthMenu';
+import DragIndicator from '@Components/DragIndicator';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
@@ -69,7 +70,7 @@ export default class AuthEntry extends React.Component {
 
   render() {
     const { service, account, notes, color } = this.props.entry;
-    const { id, onEdit, onRemove, canEdit } = this.props;
+    const { id, onEdit, onRemove, canEdit, style, innerRef, ...divProps } = this.props;
     const { token, timeLeft } = this.state;
 
     const entryStyle = {};
@@ -77,9 +78,24 @@ export default class AuthEntry extends React.Component {
       entryStyle.backgroundColor = color;
     }
 
+    delete divProps.onCopyToken;
+
     return (
-      <div className="sk-notification sk-base-custom" style={entryStyle}>
+      <div
+        {...divProps}
+        className="sk-notification sk-base-custom"
+        style={{
+          ...entryStyle,
+          ...style
+        }}
+        ref={innerRef}
+      >
         <div className="auth-entry">
+          {canEdit && (
+            <div className="auth-drag-indicator-container">
+              <DragIndicator />
+            </div>
+          )}
           <div className="auth-details">
             <div className="auth-info">
               <div className="auth-service">{service}</div>
@@ -91,7 +107,7 @@ export default class AuthEntry extends React.Component {
                 <div>{token.substr(3, 3)}</div>
               </div>
               <div className="auth-countdown">
-                <CountdownPie token={token} timeLeft={timeLeft} total={30} />
+                <CountdownPie token={token} timeLeft={timeLeft} total={30} bgColor={color} />
               </div>
             </div>
           </div>
@@ -121,5 +137,7 @@ AuthEntry.propTypes = {
   onRemove: PropTypes.func.isRequired,
   onEntryChange: PropTypes.func,
   onCopyToken: PropTypes.func.isRequired,
-  canEdit: PropTypes.bool.isRequired
+  canEdit: PropTypes.bool.isRequired,
+  innerRef: PropTypes.func.isRequired,
+  style: PropTypes.object.isRequired
 };
