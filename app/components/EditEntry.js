@@ -20,7 +20,12 @@ const defaultColorOptions = [
 
 export default class EditEntry extends React.Component {
   static defaultProps = {
-    entry: {}
+    entry: {
+      service: '',
+      account: '',
+      secret: '',
+      notes: ''
+    }
   };
 
   constructor(props) {
@@ -150,7 +155,7 @@ export default class EditEntry extends React.Component {
                 />
               </div>
             )}
-            <form>
+            <form onSubmit={this.onSave} autoComplete="off">
               <input
                 name="service"
                 className="sk-input contrast"
@@ -196,14 +201,14 @@ export default class EditEntry extends React.Component {
               />
               <div className="sk-panel-row">
                 <div className="sk-button-group stretch">
-                  <div className="sk-button neutral" onClick={this.props.onCancel}>
+                  <button type="submit" className="sk-button neutral" onClick={this.props.onCancel}>
                     <div className="sk-label">Cancel</div>
-                  </div>
-                  <div className="sk-button info" onClick={this.onSave}>
+                  </button>
+                  <button type="submit" className="sk-button info">
                     <div className="sk-label">
                       {id != null ? 'Save' : 'Create'}
                     </div>
-                  </div>
+                  </button>
                 </div>
               </div>
             </form>
