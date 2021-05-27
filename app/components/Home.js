@@ -176,7 +176,7 @@ export default class Home extends React.Component {
     }
   };
 
-  onCopyToken = () => {
+  onCopyValue = () => {
     this.setState({
       displayCopy: true
     });
@@ -204,7 +204,7 @@ export default class Home extends React.Component {
         >
           <div className="sk-panel">
             <div className="sk-font-small sk-bold">
-              Copied token to clipboard.
+              Copied value to clipboard.
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default class Home extends React.Component {
               entries={entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
-              onCopyToken={this.onCopyToken}
+              onCopyValue={this.onCopyValue}
               canEdit={canEdit}
             />
           )}

@@ -92,6 +92,22 @@ html {
   }
 }
 
+.auth-password-row {
+  float: right;
+  margin-bottom: 8px;
+  margin-right: 55px;
+
+  .auth-password-label {
+    margin-bottom: 8px;
+  }
+
+  .auth-password-copy {
+    font-size: var(--sn-stylekit-base-font-size);
+    font-style: italic;
+    overflow: hidden;
+  }
+}
+
 // Copy token notification
 .auth-copy-notification {
   position: fixed;

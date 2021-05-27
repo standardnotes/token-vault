@@ -57,18 +57,18 @@ export default class AuthEntry extends React.Component {
     });
   }
 
-  copyToken = () => {
+  copyToClipboard = () => {
     const textField = document.createElement('textarea');
     textField.innerText = this.state.token;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand('copy');
     textField.remove();
-    this.props.onCopyToken();
+    this.props.onCopyValue();
   }
 
   render() {
-    const { service, account, notes, color } = this.props.entry;
+    const { service, account, notes, color, password } = this.props.entry;
     const { id, onEdit, onRemove, canEdit } = this.props;
     const { token, timeLeft } = this.state;
 
@@ -86,7 +86,7 @@ export default class AuthEntry extends React.Component {
               <div className="auth-account">{account}</div>
             </div>
             <div className="auth-token-info">
-              <div className="auth-token" onClick={this.copyToken}>
+              <div className="auth-token" onClick={this.copyToClipboard}>
                 <div>{token.substr(0, 3)}</div>
                 <div>{token.substr(3, 3)}</div>
               </div>
@@ -104,6 +104,18 @@ export default class AuthEntry extends React.Component {
             </div>
           )}
         </div>
+        {password && (
+          <div className="auth-password-row">
+            <div className="auth-password-label">
+              Password: ••••••••
+            </div>
+            <div className="auth-password-copy">
+              <div onClick={this.copyToClipboard} className="sk-button info">
+                <div className="sk-label">Copy password</div>
+              </div>
+            </div>
+          </div>
+        )}
         {notes && (
           <div className="auth-notes-row">
             <div className="auth-notes">{notes}</div>
@@ -120,6 +132,6 @@ AuthEntry.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onEntryChange: PropTypes.func,
-  onCopyToken: PropTypes.func.isRequired,
+  onCopyValue: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired
 };
