@@ -13,17 +13,17 @@ const reorderEntries = (list, startIndex, endIndex) => {
 
 const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEntries }) => {
   const onDragEnd = (result) => {
-    // dropped outside the list
-    if (!result.destination) {
+    const droppedOutsideList = !result.destination;
+    if (droppedOutsideList) {
       return;
     }
-  
+
     const orderedEntries = reorderEntries(
       entries,
       result.source.index,
       result.destination.index
     );
-  
+
     updateEntries(orderedEntries);
   };
 
