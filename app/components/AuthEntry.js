@@ -100,6 +100,20 @@ export default class AuthEntry extends React.Component {
             <div className="auth-info">
               <div className="auth-service">{service}</div>
               <div className="auth-account">{account}</div>
+              <div className="auth-optional">
+                {notes && (
+                  <div className="auth-notes-row">
+                    <div className="auth-notes">{notes}</div>
+                  </div>
+                )}
+                {password && (
+                  <div className="auth-password-row">
+                    <div className="auth-password" onClick={() => this.copyToClipboard(password)}>
+                      ••••••••••••
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="auth-token-info">
               <div className="auth-token" onClick={() => this.copyToClipboard(token)}>
@@ -120,18 +134,6 @@ export default class AuthEntry extends React.Component {
             </div>
           )}
         </div>
-        {password && (
-          <div className="auth-password-row">
-            <div className="auth-password" onClick={() => this.copyToClipboard(password)}>
-              Password: ••••••••••••
-            </div>
-          </div>
-        )}
-        {notes && (
-          <div className="auth-notes-row">
-            <div className="auth-notes">{notes}</div>
-          </div>
-        )}
       </div>
     );
   }

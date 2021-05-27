@@ -184,18 +184,18 @@ export default class EditEntry extends React.Component {
                 required
               />
               <input
-                name="password"
-                className="sk-input contrast"
-                placeholder="Password (optional)"
-                value={entry.password}
-                onChange={this.handleInputChange}
-                type="text"
-              />
-              <input
                 name="notes"
                 className="sk-input contrast"
                 placeholder="Notes"
                 value={entry.notes}
+                onChange={this.handleInputChange}
+                type="text"
+              />
+              <input
+                name="password"
+                className="sk-input contrast"
+                placeholder="Password (optional)"
+                value={entry.password}
                 onChange={this.handleInputChange}
                 type="text"
               />
