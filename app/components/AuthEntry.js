@@ -57,9 +57,9 @@ export default class AuthEntry extends React.Component {
     });
   }
 
-  copyToClipboard = () => {
+  copyToClipboard = (value) => {
     const textField = document.createElement('textarea');
-    textField.innerText = this.state.token;
+    textField.innerText = value;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand('copy');
@@ -86,7 +86,7 @@ export default class AuthEntry extends React.Component {
               <div className="auth-account">{account}</div>
             </div>
             <div className="auth-token-info">
-              <div className="auth-token" onClick={this.copyToClipboard}>
+              <div className="auth-token" onClick={() => this.copyToClipboard(token)}>
                 <div>{token.substr(0, 3)}</div>
                 <div>{token.substr(3, 3)}</div>
               </div>
@@ -106,13 +106,8 @@ export default class AuthEntry extends React.Component {
         </div>
         {password && (
           <div className="auth-password-row">
-            <div className="auth-password-label">
-              Password: ••••••••
-            </div>
-            <div className="auth-password-copy">
-              <div onClick={this.copyToClipboard} className="sk-button info">
-                <div className="sk-label">Copy password</div>
-              </div>
+            <div className="auth-password" onClick={() => this.copyToClipboard(password)}>
+              Password: ••••••••••••
             </div>
           </div>
         )}
