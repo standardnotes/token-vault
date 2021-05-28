@@ -242,17 +242,18 @@ export default class Home extends React.Component {
           </div>
         </div>
         {parseError && <DataErrorAlert />}
-        <div id="header" className={!canEdit ? 'hidden' : '' }>
-          <div className="sk-button-group">
-            <div onClick={this.onReorderEntries} className="sk-button info" aria-disabled={!canEdit}>
-              <ReorderIcon />
-            </div>
-            <div onClick={this.onAddNew} className="sk-button info" aria-disabled={!canEdit}>
-              <div className="sk-label">Add New</div>
+        {canEdit && !editMode && (
+          <div id="header">
+            <div className="sk-button-group">
+              <div onClick={this.onReorderEntries} className="sk-button info">
+                <ReorderIcon />
+              </div>
+              <div onClick={this.onAddNew} className="sk-button info">
+                <div className="sk-label">Add New</div>
+              </div>
             </div>
           </div>
-        </div>
-
+        )}
         <div id="content">
           {editMode ? (
             <EditEntry
