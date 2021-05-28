@@ -11,7 +11,7 @@ const reorderEntries = (list, startIndex, endIndex) => {
   return result;
 };
 
-const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEntries }) => {
+const ViewEntries = ({ entries, onEdit, onRemove, onCopyValue, canEdit, updateEntries }) => {
   const onDragEnd = (result) => {
     const droppedOutsideList = !result.destination;
     if (droppedOutsideList) {
@@ -53,7 +53,7 @@ const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEn
                     entry={entry}
                     onEdit={onEdit}
                     onRemove={onRemove}
-                    onCopyToken={onCopyToken}
+                    onCopyValue={onCopyValue}
                     canEdit={canEdit}
                   />
                 )}
@@ -71,7 +71,7 @@ ViewEntries.propTypes =  {
   entries: PropTypes.arrayOf(PropTypes.object),
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  onCopyToken: PropTypes.func.isRequired,
+  onCopyValue: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
   updateEntries: PropTypes.func.isRequired
 };

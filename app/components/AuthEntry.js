@@ -58,18 +58,18 @@ export default class AuthEntry extends React.Component {
     });
   }
 
-  copyToken = () => {
+  copyToClipboard = (value) => {
     const textField = document.createElement('textarea');
-    textField.innerText = this.state.token;
+    textField.innerText = value;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand('copy');
     textField.remove();
-    this.props.onCopyToken();
+    this.props.onCopyValue();
   }
 
   render() {
-    const { service, account, notes, color } = this.props.entry;
+    const { service, account, notes, color, password } = this.props.entry;
     const { id, onEdit, onRemove, canEdit, style, innerRef, ...divProps } = this.props;
     const { token, timeLeft } = this.state;
 
@@ -100,9 +100,23 @@ export default class AuthEntry extends React.Component {
             <div className="auth-info">
               <div className="auth-service">{service}</div>
               <div className="auth-account">{account}</div>
+              <div className="auth-optional">
+                {notes && (
+                  <div className="auth-notes-row">
+                    <div className="auth-notes">{notes}</div>
+                  </div>
+                )}
+                {password && (
+                  <div className="auth-password-row">
+                    <div className="auth-password" onClick={() => this.copyToClipboard(password)}>
+                      ••••••••••••
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="auth-token-info">
-              <div className="auth-token" onClick={this.copyToken}>
+              <div className="auth-token" onClick={() => this.copyToClipboard(token)}>
                 <div>{token.substr(0, 3)}</div>
                 <div>{token.substr(3, 3)}</div>
               </div>
@@ -120,11 +134,6 @@ export default class AuthEntry extends React.Component {
             </div>
           )}
         </div>
-        {notes && (
-          <div className="auth-notes-row">
-            <div className="auth-notes">{notes}</div>
-          </div>
-        )}
       </div>
     );
   }
@@ -136,7 +145,7 @@ AuthEntry.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onEntryChange: PropTypes.func,
-  onCopyToken: PropTypes.func.isRequired,
+  onCopyValue: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
   innerRef: PropTypes.func.isRequired,
   style: PropTypes.object.isRequired

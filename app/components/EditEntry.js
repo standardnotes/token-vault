@@ -191,6 +191,14 @@ export default class EditEntry extends React.Component {
                 onChange={this.handleInputChange}
                 type="text"
               />
+              <input
+                name="password"
+                className="sk-input contrast"
+                placeholder="Password (optional)"
+                value={entry.password}
+                onChange={this.handleInputChange}
+                type="text"
+              />
               <div className="sk-panel-row">
                 <div className="sk-button-group stretch">
                   <button type="submit" className="sk-button neutral" onClick={this.props.onCancel}>

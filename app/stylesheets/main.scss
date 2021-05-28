@@ -84,11 +84,23 @@ html {
   padding: 28px 14px 28px 28px !important;
 }
 
-.auth-notes-row {
-  .auth-notes {
-    font-size: var(--sn-stylekit-base-font-size);
-    font-style: italic;
-    overflow: hidden;
+.auth-optional {
+  margin-top: 15px;
+  .auth-notes-row {
+    .auth-notes {
+      font-size: var(--sn-stylekit-base-font-size);
+      font-style: italic;
+      overflow: hidden;
+    }
+  }
+  .auth-password-row {
+    margin-top: 8px;
+
+    .auth-password {
+      font-size: var(--sn-stylekit-font-size-h1);
+      overflow: hidden;
+      cursor: pointer;
+    }
   }
 }
 
@@ -133,7 +145,6 @@ html {
   }
 
   .auth-details {
-    margin-bottom: 8px;
     flex: 1;
     display: flex;
     flex-direction: row;
