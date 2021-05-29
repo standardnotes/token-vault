@@ -136,7 +136,7 @@ html {
   @media screen and (max-width: 480px) {
     .auth-details {
       flex-direction: column !important;
-      align-items: center !important;
+      align-items: stretch !important;
     }
   }
 
@@ -151,6 +151,7 @@ html {
     .auth-info {
       margin: 4px 0;
       min-width: inherit;
+      word-wrap: break-word;
 
       .auth-service {
         font-size: var(--sn-stylekit-font-size-h1);
