@@ -78,7 +78,7 @@ export default class AuthEntry extends React.Component {
       entryStyle.backgroundColor = color;
     }
 
-    delete divProps.onCopyToken;
+    delete divProps.onCopyValue;
 
     return (
       <div
