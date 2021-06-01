@@ -34,8 +34,8 @@ html {
   min-height: 26px;
   padding: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
 }
 
 #content {
@@ -325,6 +325,30 @@ html {
   border: 1px solid var(--sn-stylekit-border-color);
 }
 
+@media screen and (max-width: 480px) {
+  .left {
+    width: 60% !important;
+  }
+
+  .right {
+    width: 40% !important;
+  }
+}
+
+.left {
+  width: 85%;
+  margin-right: 10px;
+  display: flex;
+}
+
+.right {
+  width: 15%;
+  text-align: right;
+}
+
+.search-bar {
+  height: 27px;
+}
 // Injected in CountdownPie.js
 // @keyframes rota {
 //   0% {
