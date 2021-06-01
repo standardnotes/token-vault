@@ -16,7 +16,8 @@ const initialState = {
   confirmRemove: false,
   confirmReorder: false,
   displayCopy: false,
-  canEdit: true
+  canEdit: true,
+  searchValue: ''
 };
 
 export default class Home extends React.Component {
@@ -210,6 +211,19 @@ export default class Home extends React.Component {
     });
   };
 
+  onSearchChange = event => {
+    const target = event.target;
+    this.setState({
+      searchValue: target.value.toLowerCase()
+    });
+  };
+
+  clearSearchValue = () => {
+    this.setState({
+      searchValue: ''
+    });
+  }
+
   reorderEntries = () => {
     const { entries } = this.state;
     const orderedEntries = entries.sort((a, b) => {
@@ -226,7 +240,16 @@ export default class Home extends React.Component {
 
   render() {
     const editEntry = this.state.editEntry || {};
-    const { canEdit, displayCopy, parseError, editMode, entries, confirmRemove, confirmReorder } = this.state;
+    const {
+      canEdit,
+      displayCopy,
+      parseError,
+      editMode,
+      entries,
+      confirmRemove,
+      confirmReorder,
+      searchValue
+    } = this.state;
 
     return (
       <div className="sn-component">
@@ -244,12 +267,30 @@ export default class Home extends React.Component {
         {parseError && <DataErrorAlert />}
         {canEdit && !editMode && (
           <div id="header">
-            <div className="sk-button-group">
-              <div onClick={this.onReorderEntries} className="sk-button info">
-                <ReorderIcon />
-              </div>
-              <div onClick={this.onAddNew} className="sk-button info">
-                <div className="sk-label">Add New</div>
+            <div className="sk-horizontal-group left align-items-center">
+              <input
+                name="search"
+                className="sk-input contrast"
+                placeholder="Search entries..."
+                value={searchValue}
+                onChange={this.onSearchChange}
+                autoComplete="off"
+                type="text"
+              />
+              {searchValue && (
+                <div onClick={this.clearSearchValue} className="sk-button danger">
+                  <div className="sk-label">X</div>
+                </div>
+              )}
+            </div>
+            <div className="sk-horizontal-group right">
+              <div className="sk-button-group stretch">
+                <div onClick={this.onReorderEntries} className="sk-button info">
+                  <ReorderIcon />
+                </div>
+                <div onClick={this.onAddNew} className="sk-button info">
+                  <div className="sk-label">Add New</div>
+                </div>
               </div>
             </div>
           </div>
@@ -265,6 +306,7 @@ export default class Home extends React.Component {
           ) : (
             <ViewEntries
               entries={entries}
+              searchValue={searchValue}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
               onCopyValue={this.onCopyValue}
