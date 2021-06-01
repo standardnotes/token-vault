@@ -270,7 +270,7 @@ export default class Home extends React.Component {
             <div className="sk-horizontal-group left align-items-center">
               <input
                 name="search"
-                className="sk-input contrast"
+                className="sk-input contrast search-bar"
                 placeholder="Search entries..."
                 value={searchValue}
                 onChange={this.onSearchChange}
