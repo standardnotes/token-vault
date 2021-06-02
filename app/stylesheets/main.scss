@@ -289,7 +289,7 @@ html {
 
 .color-picker-swatch {
   padding: 5px;
-  background: var(--sn-stylekit-background-color);
+  background: var(--sn-stylekit-contrast-background-color);
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgba(0,0,0,.1);
   display: inline-block;
@@ -299,8 +299,8 @@ html {
 .color-picker-popover {
   position: absolute;
   z-index: 200;
-  right: 35px;
-  top: 85px;
+  left: 35px;
+  top: 370px;
 }
 
 .color-picker-cover {
