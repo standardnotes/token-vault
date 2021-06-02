@@ -125,6 +125,16 @@ export default class EditEntry extends React.Component {
           <div className="sk-panel-section">
             <div className="sk-panel-section-title sk-panel-row">
               {id != null ? 'Edit entry' : 'Add new entry'}
+              <div className="sk-panel-section-title sk-panel-row">
+                {entry.color && (
+                  <div className="sk-button danger" onClick={this.removeColor}>
+                    <div className="sk-label">Clear color</div>
+                  </div>
+                )}
+                <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
+                  <div style={swatchStyle} />
+                </div>
+              </div>
             </div>
             {id == null && (
               <div className="sk-panel-section sk-panel-hero align-items-center">
@@ -180,19 +190,6 @@ export default class EditEntry extends React.Component {
                   type="text"
                 />
               </div>
-              <div className="sk-panel-section">
-                <div className="sk-panel-row">
-                  <div className="sk-label">Background color:</div>
-                  <div className="sk-horizontal-group left align-items-center">
-                    <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
-                      <div style={swatchStyle} />
-                    </div>
-                    {entry.color && (
-                      <a className="sk-a danger" onClick={this.removeColor}>Clear color</a>
-                    )}
-                  </div>
-                </div>
-              </div>
               {showColorPicker && (
                 <div className="color-picker-popover">
                   <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
@@ -200,7 +197,7 @@ export default class EditEntry extends React.Component {
                     color={entry.color ?? defaultBgColor}
                     colors={defaultColorOptions}
                     onChangeComplete={this.handleColorChange}
-                    triangle="top-left"
+                    triangle="top-right"
                   />
                 </div>
               )}
