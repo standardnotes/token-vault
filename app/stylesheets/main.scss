@@ -325,7 +325,7 @@ html {
   border: 1px solid var(--sn-stylekit-border-color);
 }
 
-@media screen and (max-width: 480px) {
+@media only screen and (max-width: 600px) {
   .left {
     width: 60% !important;
   }
@@ -335,14 +335,42 @@ html {
   }
 }
 
+@media only screen and (min-width: 600px) {
+  .left {
+    width: 75% !important;
+  }
+
+  .right {
+    width: 25% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .left {
+    width: 80% !important;
+  }
+
+  .right {
+    width: 20% !important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .left {
+    width: 85% !important;
+  }
+
+  .right {
+    width: 15% !important;
+  }
+}
+
 .left {
-  width: 85%;
   margin-right: 10px;
   display: flex;
 }
 
 .right {
-  width: 15%;
   text-align: right;
 }
 

@@ -289,7 +289,7 @@ export default class Home extends React.Component {
                   <ReorderIcon />
                 </div>
                 <div onClick={this.onAddNew} className="sk-button info">
-                  <div className="sk-label">Add New</div>
+                  <div className="sk-label">Add new</div>
                 </div>
               </div>
             </div>
