@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
-import AlertDialog from '@Components/AlertDialog';
+import { SKAlert } from 'sn-stylekit';
 
 const defaultBgColor = '#fff';
 const defaultColorOptions = [
@@ -122,6 +122,27 @@ export default class EditEntry extends React.Component {
   render() {
     const { id, entry, showColorPicker, qrCodeError } = this.state;
 
+    const qrCodeAlert = new SKAlert({
+      title: 'Error',
+      text: qrCodeError,
+      buttons: [
+        {
+          text: 'Cancel',
+          style: 'neutral',
+          action: this.dismissQRCodeError,
+        },
+        {
+          text: 'Continue',
+          style: 'danger',
+          action: this.dismissQRCodeError
+        }
+      ]
+    });
+
+    if (qrCodeError) {
+      qrCodeAlert.present();
+    }
+
     const swatchStyle = {
       width: '36px',
       height: '14px',
@@ -215,13 +236,6 @@ export default class EditEntry extends React.Component {
               </div>
             </form>
           </div>
-          {qrCodeError && (
-            <AlertDialog
-              title={'Error'}
-              message={qrCodeError}
-              onDismiss={this.dismissQRCodeError}
-            />
-          )}
         </div>
       </div>
     );
