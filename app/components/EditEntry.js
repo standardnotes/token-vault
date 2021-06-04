@@ -127,13 +127,8 @@ export default class EditEntry extends React.Component {
       text: qrCodeError,
       buttons: [
         {
-          text: 'Cancel',
-          style: 'neutral',
-          action: this.dismissQRCodeError,
-        },
-        {
-          text: 'Continue',
-          style: 'danger',
+          text: 'OK',
+          style: 'info',
           action: this.dismissQRCodeError
         }
       ]
