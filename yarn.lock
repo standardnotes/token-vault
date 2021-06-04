@@ -5412,10 +5412,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-sn-stylekit@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/sn-stylekit/-/sn-stylekit-5.1.0.tgz#97ce7323834ff7f3645ed4463beb3ad4e42f7e7e"
-  integrity sha512-SjKJYGRnR1iCVtllqJyW9/gWV7V56MJrkXHEo5+C9Ch3syRRlG3k+AwC0vC8ms6PWxpHJUdCHLQROvFOBPQuCw==
+sn-stylekit@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/sn-stylekit/-/sn-stylekit-2.1.0.tgz#ca6c925e714a1ff490e0e499341c6335059e00e0"
+  integrity sha512-H7Ml3rMSTGSveM7YRd574gPAIw/HINdnkQjk/TxQ9Vt457im+z6lZq9AerXn+9NiYWfY88B5LrOTihKOwTGYgw==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
