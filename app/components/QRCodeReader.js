@@ -3,6 +3,30 @@ import PropTypes from 'prop-types';
 import jsQR from 'jsqr';
 import { parseKeyUri } from '@Lib/otp';
 
+const convertToGrayScale = (imageData) => {
+  if (!imageData) {
+    return;
+  }
+
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const count = imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2];
+    let color = 0;
+
+    if (count > 510) {
+      color = 255;
+    } else if (count > 255) {
+      color = 127.5;
+    }
+
+    imageData.data[i] = color;
+    imageData.data[i + 1] = color;
+    imageData.data[i + 2] = color;
+    imageData.data[i + 3] = 255;
+  }
+
+  return imageData;
+};
+
 export default class QRCodeReader extends React.Component {
   onImageSelected = evt => {
     const file = evt.target.files[0];
@@ -18,30 +42,6 @@ export default class QRCodeReader extends React.Component {
       canvas.width = this.width;
       canvas.height = this.height;
       context.drawImage(this, 0, 0);
-
-      const convertToGrayScale = (imageData) => {
-        if (!imageData) {
-          return;
-        }
-
-        for (let i = 0; i < imageData.data.length; i += 4) {
-          const count = imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2];
-          let color = 0;
-
-          if (count > 510) {
-            color = 255;
-          } else if (count > 255) {
-            color = 127.5;
-          }
-
-          imageData.data[i] = color;
-          imageData.data[i + 1] = color;
-          imageData.data[i + 2] = color;
-          imageData.data[i + 3] = 255;
-        }
-
-        return imageData;
-      };
 
       let imageData = context.getImageData(0, 0, this.width, this.height);
       imageData = convertToGrayScale(imageData);
