@@ -16,7 +16,8 @@ const initialState = {
   confirmRemove: false,
   confirmReorder: false,
   displayCopy: false,
-  canEdit: true
+  canEdit: true,
+  searchValue: ''
 };
 
 export default class Home extends React.Component {
@@ -179,7 +180,7 @@ export default class Home extends React.Component {
     }
   };
 
-  onCopyToken = () => {
+  onCopyValue = () => {
     this.setState({
       displayCopy: true
     });
@@ -210,6 +211,19 @@ export default class Home extends React.Component {
     });
   };
 
+  onSearchChange = event => {
+    const target = event.target;
+    this.setState({
+      searchValue: target.value.toLowerCase()
+    });
+  };
+
+  clearSearchValue = () => {
+    this.setState({
+      searchValue: ''
+    });
+  }
+
   reorderEntries = () => {
     const { entries } = this.state;
     const orderedEntries = entries.sort((a, b) => {
@@ -226,7 +240,16 @@ export default class Home extends React.Component {
 
   render() {
     const editEntry = this.state.editEntry || {};
-    const { canEdit, displayCopy, parseError, editMode, entries, confirmRemove, confirmReorder } = this.state;
+    const {
+      canEdit,
+      displayCopy,
+      parseError,
+      editMode,
+      entries,
+      confirmRemove,
+      confirmReorder,
+      searchValue
+    } = this.state;
 
     return (
       <div className="sn-component">
@@ -237,22 +260,41 @@ export default class Home extends React.Component {
         >
           <div className="sk-panel">
             <div className="sk-font-small sk-bold">
-              Copied token to clipboard.
+              Copied value to clipboard.
             </div>
           </div>
         </div>
         {parseError && <DataErrorAlert />}
-        <div id="header" className={!canEdit ? 'hidden' : '' }>
-          <div className="sk-button-group">
-            <div onClick={this.onReorderEntries} className="sk-button info" aria-disabled={!canEdit}>
-              <ReorderIcon />
+        {canEdit && !editMode && (
+          <div id="header">
+            <div className="sk-horizontal-group left align-items-center">
+              <input
+                name="search"
+                className="sk-input contrast search-bar"
+                placeholder="Search entries..."
+                value={searchValue}
+                onChange={this.onSearchChange}
+                autoComplete="off"
+                type="text"
+              />
+              {searchValue && (
+                <div onClick={this.clearSearchValue} className="sk-button danger">
+                  <div className="sk-label">X</div>
+                </div>
+              )}
             </div>
-            <div onClick={this.onAddNew} className="sk-button info" aria-disabled={!canEdit}>
-              <div className="sk-label">Add New</div>
+            <div className="sk-horizontal-group right">
+              <div className="sk-button-group stretch">
+                <div onClick={this.onReorderEntries} className="sk-button info">
+                  <ReorderIcon />
+                </div>
+                <div onClick={this.onAddNew} className="sk-button info">
+                  <div className="sk-label">Add new</div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
+        )}
         <div id="content">
           {editMode ? (
             <EditEntry
@@ -264,9 +306,10 @@ export default class Home extends React.Component {
           ) : (
             <ViewEntries
               entries={entries}
+              searchValue={searchValue}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
-              onCopyToken={this.onCopyToken}
+              onCopyValue={this.onCopyValue}
               canEdit={canEdit}
               updateEntries={this.updateEntries}
             />

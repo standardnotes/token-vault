@@ -935,10 +935,10 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@standardnotes/editor-kit@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@standardnotes/editor-kit/-/editor-kit-2.0.2.tgz#cfe147888406ac1e61f6ef33a8e2523cd5c13638"
-  integrity sha512-/nHp96PzZ8Dp9SwrkiDRumuztdxKC6iUJ1Ufj/uggPgwAI6MSOI9o0cx4tvA8/T4CadF9WZFDC06nh4QnlSNrA==
+"@standardnotes/editor-kit@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@standardnotes/editor-kit/-/editor-kit-2.1.0.tgz#dd32ac7d4965137b4fef0b34683ddfa50830aaca"
+  integrity sha512-pjDcjkNvth+51LnHChT7klj4vfYAb//rALyCdGMQqCWvvVKBCRvHPSkLEMBlhEmKzv7urf/1aPkGB4+8qUMqYg==
 
 "@standardnotes/eslint-config-extensions@^1.0.1":
   version "1.0.1"

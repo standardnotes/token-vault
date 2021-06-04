@@ -11,7 +11,7 @@ const reorderEntries = (list, startIndex, endIndex) => {
   return result;
 };
 
-const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEntries }) => {
+const ViewEntries = ({ entries, onEdit, onRemove, onCopyValue, canEdit, updateEntries, searchValue }) => {
   const onDragEnd = (result) => {
     const droppedOutsideList = !result.destination;
     if (droppedOutsideList) {
@@ -36,29 +36,38 @@ const ViewEntries = ({ entries, onEdit, onRemove, onCopyToken, canEdit, updateEn
             ref={provided.innerRef}
             className="auth-list"
           >
-            {entries.map((entry, index) => (
-              <Draggable
-                key={`${entry.service}-${index}`}
-                draggableId={`${entry.service}-${index}`}
-                index={index}
-                isDragDisabled={!canEdit}
-              >
-                {(provided) => (
-                  <AuthEntry
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    innerRef={provided.innerRef}
-                    key={index}
-                    id={index}
-                    entry={entry}
-                    onEdit={onEdit}
-                    onRemove={onRemove}
-                    onCopyToken={onCopyToken}
-                    canEdit={canEdit}
-                  />
-                )}
-              </Draggable>
-            ))}
+            {entries.map((entry, index) => {
+              /**
+               * Filtering entries by account, service and notes properties.
+               */
+              const combinedString = `${entry.account}${entry.service}${entry.notes}`.toLowerCase();
+              if (searchValue && !combinedString.includes(searchValue)) {
+                return;
+              }
+              return (
+                <Draggable
+                  key={`${entry.service}-${index}`}
+                  draggableId={`${entry.service}-${index}`}
+                  index={index}
+                  isDragDisabled={!canEdit}
+                >
+                  {(provided) => (
+                    <AuthEntry
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      innerRef={provided.innerRef}
+                      key={index}
+                      id={index}
+                      entry={entry}
+                      onEdit={onEdit}
+                      onRemove={onRemove}
+                      onCopyValue={onCopyValue}
+                      canEdit={canEdit}
+                    />
+                  )}
+                </Draggable>
+              );
+            })}
             {provided.placeholder}
           </div>
         )}
@@ -71,9 +80,10 @@ ViewEntries.propTypes =  {
   entries: PropTypes.arrayOf(PropTypes.object),
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  onCopyToken: PropTypes.func.isRequired,
+  onCopyValue: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
-  updateEntries: PropTypes.func.isRequired
+  updateEntries: PropTypes.func.isRequired,
+  searchValue: PropTypes.string
 };
 
 export default ViewEntries;

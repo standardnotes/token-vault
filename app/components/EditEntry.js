@@ -162,17 +162,6 @@ export default class EditEntry extends React.Component {
                 </div>
               </div>
             </div>
-            {showColorPicker && (
-              <div className="color-picker-popover">
-                <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
-                <TwitterPicker
-                  color={entry.color ?? defaultBgColor}
-                  colors={defaultColorOptions}
-                  onChangeComplete={this.handleColorChange}
-                  triangle="top-right"
-                />
-              </div>
-            )}
             {id == null && (
               <div className="sk-panel-section sk-panel-hero align-items-center">
                 <QRCodeReader
@@ -182,42 +171,63 @@ export default class EditEntry extends React.Component {
               </div>
             )}
             <form onSubmit={this.onSave} autoComplete="off">
-              <input
-                name="service"
-                className="sk-input contrast"
-                placeholder="Service"
-                value={entry.service}
-                onChange={this.handleInputChange}
-                type="text"
-                required
-              />
-              <input
-                name="account"
-                className="sk-input contrast"
-                placeholder="Account"
-                value={entry.account}
-                onChange={this.handleInputChange}
-                type="text"
-              />
-              <input
-                name="secret"
-                className="sk-input contrast"
-                placeholder="Secret"
-                value={entry.secret}
-                onChange={this.handleInputChange}
-                type="text"
-                pattern={secretPattern}
-                required
-              />
-              <input
-                name="notes"
-                className="sk-input contrast"
-                placeholder="Notes"
-                value={entry.notes}
-                onChange={this.handleInputChange}
-                type="text"
-              />
-              <div className="sk-panel-row">
+              <div className="sk-panel-section">
+                <input
+                  name="service"
+                  className="sk-input contrast"
+                  placeholder="Service"
+                  value={entry.service}
+                  onChange={this.handleInputChange}
+                  type="text"
+                  required
+                />
+                <input
+                  name="account"
+                  className="sk-input contrast"
+                  placeholder="Account"
+                  value={entry.account}
+                  onChange={this.handleInputChange}
+                  type="text"
+                />
+                <input
+                  name="secret"
+                  className="sk-input contrast"
+                  placeholder="Secret"
+                  value={entry.secret}
+                  onChange={this.handleInputChange}
+                  type="text"
+                  pattern={secretPattern}
+                  required
+                />
+                <input
+                  name="notes"
+                  className="sk-input contrast"
+                  placeholder="Notes"
+                  value={entry.notes}
+                  onChange={this.handleInputChange}
+                  type="text"
+                />
+                <input
+                  name="password"
+                  className="sk-input contrast"
+                  placeholder="Password (optional)"
+                  value={entry.password}
+                  onChange={this.handleInputChange}
+                  type="text"
+                />
+              </div>
+              {showColorPicker && (
+                <div className="color-picker-popover">
+                  <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
+                  <TwitterPicker
+                    color={entry.color ?? defaultBgColor}
+                    colors={defaultColorOptions}
+                    onChangeComplete={this.handleColorChange}
+                    triangle="top-right"
+                  />
+                </div>
+              )}
+              <div className="sk-panel-section">
                 <div className="sk-button-group stretch">
                   <button type="submit" className="sk-button neutral" onClick={this.props.onCancel}>
                     <div className="sk-label">Cancel</div>
