@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
+import { SKAlert } from 'sn-stylekit';
 
 const defaultBgColor = '#fff';
 const defaultColorOptions = [
@@ -34,7 +35,8 @@ export default class EditEntry extends React.Component {
     this.state = {
       id: this.props.id,
       entry: this.props.entry,
-      showColorPicker: false
+      showColorPicker: false,
+      qrCodeError: false
     };
   }
 
@@ -106,11 +108,35 @@ export default class EditEntry extends React.Component {
   };
 
   onQRCodeError = message => {
-    console.warn('Failed to parse QRCode:', message);
+    this.setState({
+      qrCodeError: message
+    });
+  };
+
+  dismissQRCodeError = () => {
+    this.setState({
+      qrCodeError: false
+    });
   };
 
   render() {
-    const { id, entry, showColorPicker } = this.state;
+    const { id, entry, showColorPicker, qrCodeError } = this.state;
+
+    const qrCodeAlert = new SKAlert({
+      title: 'Error',
+      text: qrCodeError,
+      buttons: [
+        {
+          text: 'OK',
+          style: 'info',
+          action: this.dismissQRCodeError
+        }
+      ]
+    });
+
+    if (qrCodeError) {
+      qrCodeAlert.present();
+    }
 
     const swatchStyle = {
       width: '36px',
