@@ -177,7 +177,6 @@ html {
         font-size: 2rem;
         align-self: center;
         font-weight: bold;
-        color: var(--sn-stylekit-info-color);
         display: flex;
         justify-content: space-between;
         width: 8.2rem;
@@ -221,7 +220,7 @@ html {
   }
 
   .auth-drag-indicator-container {
-    color: var(--sn-stylekit-contrast-foreground-color);
+    color: inherit;
     overflow: visible;
     margin-bottom: 8px;
     align-self: center;
@@ -262,7 +261,7 @@ html {
   border-radius: 50%;
   width: 100%;
   z-index: 40;
-  color: var(--sn-stylekit-info-color);
+  color: inherit;
   opacity: 0.4;
 }
 
