@@ -4,6 +4,7 @@ import { totp } from '@Lib/otp';
 import CountdownPie from '@Components/CountdownPie';
 import AuthMenu from '@Components/AuthMenu';
 import DragIndicator from '@Components/DragIndicator';
+import { getVarColorForContrast, hexColorToRGB } from '@Lib/utils';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
@@ -75,7 +76,14 @@ export default class AuthEntry extends React.Component {
 
     const entryStyle = {};
     if (color) {
+      // The background color for the entry.
       entryStyle.backgroundColor = color;
+
+      const rgbColor = hexColorToRGB(color);
+      const varColor = getVarColorForContrast(rgbColor);
+
+      // The foreground color for the entry.
+      entryStyle.color = `var(${varColor})`;
     }
 
     delete divProps.onCopyValue;
@@ -121,7 +129,13 @@ export default class AuthEntry extends React.Component {
                 <div>{token.substr(3, 3)}</div>
               </div>
               <div className="auth-countdown">
-                <CountdownPie token={token} timeLeft={timeLeft} total={30} bgColor={color} />
+                <CountdownPie
+                  token={token}
+                  timeLeft={timeLeft}
+                  total={30}
+                  bgColor={entryStyle.backgroundColor}
+                  fgColor={entryStyle.color}
+                />
               </div>
             </div>
           </div>
@@ -130,6 +144,7 @@ export default class AuthEntry extends React.Component {
               <AuthMenu
                 onEdit={onEdit.bind(this, id)}
                 onRemove={onRemove.bind(this, id)}
+                buttonColor={entryStyle.color}
               />
             </div>
           )}

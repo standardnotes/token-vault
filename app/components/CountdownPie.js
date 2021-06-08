@@ -93,7 +93,7 @@ function useRotateAnimation(token, timeLeft, total) {
   );
 }
 
-const CountdownPie = ({ token, timeLeft, total, bgColor }) => {
+const CountdownPie = ({ token, timeLeft, total, bgColor, fgColor }) => {
   useRotateAnimation(token, timeLeft, total);
 
   return (
@@ -104,13 +104,17 @@ const CountdownPie = ({ token, timeLeft, total, bgColor }) => {
         className="pie spinner"
         style={{
           animation: `rota_${animationName(token)} ${timeLeft}s linear`,
+          backgroundColor: fgColor
         }}
       />
-      <div className="pie background" />
+      <div className="pie background" style={{
+        backgroundColor: fgColor
+      }} />
       <div
         className="pie filler"
         style={{
           animation: `opa_r_${animationName(token)} ${timeLeft}s steps(1, end)`,
+          backgroundColor: fgColor
         }}
       />
       <div
@@ -127,7 +131,8 @@ CountdownPie.propTypes = {
   token: PropTypes.string.isRequired,
   timeLeft: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  bgColor: PropTypes.string
+  bgColor: PropTypes.string,
+  fgColor: PropTypes.string
 };
 
 export default CountdownPie;
