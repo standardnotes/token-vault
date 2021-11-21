@@ -7,16 +7,16 @@ import { SKAlert } from 'sn-stylekit';
 
 const defaultBgColor = '#fff';
 const defaultColorOptions = [
-  '#FFB299',
-  '#FFEBB5',
-  '#7BDCB5',
-  '#BDD684',
-  '#799AE0',
-  '#7ECEFD',
-  '#ABB8C3',
-  '#F27977',
-  '#FFAFAF',
-  '#D5C8EB'
+  '#FF794D',
+  '#FFDD82',
+  '#53D19E',
+  '#A8C95E',
+  '#507BD6',
+  '#4CBBFC',
+  '#8D9FAE',
+  '#EE4B48',
+  '#FF7C7C',
+  '#B8A3DD'
 ];
 
 export default class EditEntry extends React.Component {
