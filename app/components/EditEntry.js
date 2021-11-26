@@ -4,8 +4,8 @@ import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
 import { SKAlert } from 'sn-stylekit';
+import { defaultBgColor } from '../lib/utils';
 
-const defaultBgColor = '#fff';
 const defaultColorOptions = [
   '#FF794D',
   '#E9A900',
@@ -145,6 +145,8 @@ export default class EditEntry extends React.Component {
       background: `${entry.color ?? defaultBgColor}`,
     };
 
+    const hasThemeColor = !!entry.themeColor;
+
     return (
       <div className="auth-edit sk-panel">
         <div className="sk-panel-content">
@@ -158,14 +160,18 @@ export default class EditEntry extends React.Component {
                     onError={this.onQRCodeError}
                   />
                 )}
-                {entry.color && (
-                  <div className="sk-button danger" onClick={this.removeColor}>
-                    <div className="sk-label">Clear color</div>
-                  </div>
+                {!hasThemeColor && (
+                  <>
+                    {entry.color && (
+                      <div className="sk-button danger" onClick={this.removeColor}>
+                        <div className="sk-label">Clear color</div>
+                      </div>
+                    )}
+                    <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
+                      <div style={swatchStyle} />
+                    </div>
+                  </>
                 )}
-                <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
-                  <div style={swatchStyle} />
-                </div>
               </div>
             </div>
             <form onSubmit={this.onSave} autoComplete="off">

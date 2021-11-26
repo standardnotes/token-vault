@@ -4,7 +4,8 @@ import { totp } from '@Lib/otp';
 import CountdownPie from '@Components/CountdownPie';
 import AuthMenu from '@Components/AuthMenu';
 import DragIndicator from '@Components/DragIndicator';
-import { getVarColorForContrast, hexColorToRGB } from '@Lib/utils';
+import { getVarColorForContrast } from '@Lib/utils';
+import { getEntryColor, hexColorToRGB } from '../lib/utils';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
@@ -12,7 +13,11 @@ export default class AuthEntry extends React.Component {
 
     this.state = {
       token: '',
-      timeLeft: 0
+      timeLeft: 0,
+      entryStyle: {
+        color: '',
+        backgroundColor: '',
+      }
     };
 
     this.updateToken();
@@ -36,11 +41,23 @@ export default class AuthEntry extends React.Component {
     this.timer = setTimeout(this.updateToken, timeLeft * 1000);
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.updateEntryStyle();
+    }, 200);
+  }
+
   componentDidUpdate(prevProps) {
     // If the secret changed make sure to recalculate token
     if (prevProps.entry.secret !== this.props.entry.secret) {
       clearTimeout(this.timer);
       this.timer = setTimeout(this.updateToken, 0);
+    }
+
+    if (prevProps.lastUpdated !== this.props.lastUpdated) {
+      setTimeout(() => {
+        this.updateEntryStyle();
+      }, 200);
     }
   }
 
@@ -69,24 +86,33 @@ export default class AuthEntry extends React.Component {
     this.props.onCopyValue();
   }
 
-  render() {
-    const { service, account, notes, color, password } = this.props.entry;
-    const { id, onEdit, onRemove, canEdit, style, innerRef, ...divProps } = this.props;
-    const { token, timeLeft } = this.state;
+  updateEntryStyle = () => {
+    const { entryStyle } = this.state;
+    const entryColor = getEntryColor(document, this.props.entry);
 
-    const entryStyle = {};
-    if (color) {
+    if (entryColor) {
       // The background color for the entry.
-      entryStyle.backgroundColor = color;
+      entryStyle.backgroundColor = entryColor;
 
-      const rgbColor = hexColorToRGB(color);
+      const rgbColor = hexColorToRGB(entryColor);
       const varColor = getVarColorForContrast(rgbColor);
 
       // The foreground color for the entry.
       entryStyle.color = `var(${varColor})`;
     }
 
+    this.setState({
+      entryStyle
+    });
+  }
+
+  render() {
+    const { service, account, notes, password } = this.props.entry;
+    const { id, onEdit, onRemove, canEdit, style, innerRef, ...divProps } = this.props;
+    const { token, timeLeft, entryStyle } = this.state;
+
     delete divProps.onCopyValue;
+    delete divProps.lastUpdated;
 
     return (
       <div
@@ -163,5 +189,6 @@ AuthEntry.propTypes = {
   onCopyValue: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
   innerRef: PropTypes.func.isRequired,
+  lastUpdated: PropTypes.number.isRequired,
   style: PropTypes.object.isRequired
 };
