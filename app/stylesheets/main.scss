@@ -299,8 +299,7 @@ html {
 .color-picker-popover {
   position: absolute;
   z-index: 200;
-  right: 40px;
-  top: 80px;
+  margin-top: -20px;
 }
 
 .color-picker-cover {
@@ -406,4 +405,13 @@ html {
 
 .full-width {
   width: 100% !important;
+}
+
+.color-picker-section {
+  margin-top: 3px;
+  display: flex;
+}
+
+.clear-theme-color-container {
+  margin-top: 15px;
 }

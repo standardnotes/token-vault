@@ -156,14 +156,14 @@ function getPropertyValue(document, propertyName) {
     .getPropertyValue(propertyName).trim().toUpperCase();
 }
 
-function getContextualColor(document, colorName) {
-  const contextualColors = [
-    'info',
-    'success',
-    'neutral',
-    'warning'
-  ];
+export const contextualColors = [
+  'info',
+  'success',
+  'neutral',
+  'warning'
+];
 
+function getContextualColor(document, colorName) {
   if (!contextualColors.includes(colorName)) {
     return;
   }

@@ -4,7 +4,7 @@ import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
 import { SKAlert } from 'sn-stylekit';
-import { defaultBgColor } from '../lib/utils';
+import { contextualColors, defaultBgColor } from '@Lib/utils';
 
 const defaultColorOptions = [
   '#FF794D',
@@ -119,6 +119,24 @@ export default class EditEntry extends React.Component {
     });
   };
 
+  onThemeColorChange = (event) => {
+    this.setState(state => ({
+      entry: {
+        ...state.entry,
+        themeColor: event.target.value
+      }
+    }));
+  }
+
+  removeThemeColor = () => {
+    this.setState((state) => {
+      delete state.entry.themeColor;
+      return {
+        entry: state.entry
+      };
+    });
+  };
+
   render() {
     const { id, entry, showColorPicker, qrCodeError } = this.state;
 
@@ -146,6 +164,8 @@ export default class EditEntry extends React.Component {
     };
 
     const hasThemeColor = !!entry.themeColor;
+    const hasCustomColor = !!entry.color;
+    const selectedThemeColor = entry.themeColor;
 
     return (
       <div className="auth-edit sk-panel">
@@ -159,18 +179,6 @@ export default class EditEntry extends React.Component {
                     onSuccess={this.onQRCodeSuccess}
                     onError={this.onQRCodeError}
                   />
-                )}
-                {!hasThemeColor && (
-                  <>
-                    {entry.color && (
-                      <div className="sk-button danger" onClick={this.removeColor}>
-                        <div className="sk-label">Clear color</div>
-                      </div>
-                    )}
-                    <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
-                      <div style={swatchStyle} />
-                    </div>
-                  </>
                 )}
               </div>
             </div>
@@ -219,6 +227,49 @@ export default class EditEntry extends React.Component {
                   onChange={this.handleInputChange}
                   type="text"
                 />
+                {!hasCustomColor && (
+                  <>
+                    <p>Theme colors:</p>
+                    <div className="sk-input-group">
+                      {contextualColors.map((color) => {
+                        return (
+                          <>
+                            <input
+                              key={`${color}-color`}
+                              type="radio"
+                              value={color}
+                              onChange={this.onThemeColorChange}
+                              checked={selectedThemeColor === color}
+                            />
+                            {color}
+                          </>
+                        );
+                      })}
+                    </div>
+                    {entry.themeColor && (
+                      <div className="clear-theme-color-container">
+                        <div className="sk-button danger" onClick={this.removeThemeColor}>
+                          <div className="sk-label">Clear color</div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+                {!hasThemeColor && (
+                  <>
+                    <p>Custom color:</p>
+                    <div className="color-picker-section">
+                      <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
+                        <div style={swatchStyle} />
+                      </div>
+                      {entry.color && (
+                        <div className="sk-button danger" onClick={this.removeColor}>
+                          <div className="sk-label">Clear color</div>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
               {showColorPicker && (
                 <div className="color-picker-popover">
@@ -227,7 +278,7 @@ export default class EditEntry extends React.Component {
                     color={entry.color ?? defaultBgColor}
                     colors={defaultColorOptions}
                     onChangeComplete={this.handleColorChange}
-                    triangle="top-right"
+                    triangle="top-left"
                   />
                 </div>
               )}
