@@ -4,7 +4,7 @@ import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
 import { SKAlert } from 'sn-stylekit';
-import { contextualColors, getAllContextualColors, getEntryColor } from '@Lib/utils';
+import { contextualColors, defaultBgColor, getAllContextualColors, getEntryColor } from '@Lib/utils';
 
 export default class EditEntry extends React.Component {
   static defaultProps = {
@@ -121,7 +121,7 @@ export default class EditEntry extends React.Component {
       width: '36px',
       height: '14px',
       borderRadius: '2px',
-      background: `${entryColor}`,
+      background: `${entryColor ?? defaultBgColor}`,
     };
 
     const themeColors = getAllContextualColors(document);

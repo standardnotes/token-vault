@@ -176,7 +176,12 @@ export function getContextualColor(document, colorName) {
 
 export function getEntryColor(document, entry) {
   const { color } = entry;
-  return getContextualColor(document, color) ?? color;
+
+  if (!contextualColors.includes(color)) {
+    return color;
+  }
+
+  return getContextualColor(document, color);
 }
 
 export function getAllContextualColors(document) {
