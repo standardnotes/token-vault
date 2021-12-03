@@ -4,8 +4,7 @@ import { totp } from '@Lib/otp';
 import CountdownPie from '@Components/CountdownPie';
 import AuthMenu from '@Components/AuthMenu';
 import DragIndicator from '@Components/DragIndicator';
-import { getVarColorForContrast } from '@Lib/utils';
-import { getEntryColor, hexColorToRGB } from '../lib/utils';
+import { getEntryColor, getVarColorForContrast, hexColorToRGB } from '@Lib/utils';
 
 export default class AuthEntry extends React.Component {
   constructor(props) {
