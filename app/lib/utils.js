@@ -163,7 +163,7 @@ export const contextualColors = [
   'warning'
 ];
 
-function getContextualColor(document, colorName) {
+export function getContextualColor(document, colorName) {
   if (!contextualColors.includes(colorName)) {
     return;
   }
@@ -175,11 +175,10 @@ function getContextualColor(document, colorName) {
 }
 
 export function getEntryColor(document, entry) {
-  const { color, themeColor } = entry;
+  const { color } = entry;
+  return getContextualColor(document, color) ?? color;
+}
 
-  if (themeColor) {
-    return getContextualColor(document, themeColor) ?? defaultBgColor;
-  }
-
-  return color;
+export function getAllContextualColors(document) {
+  return contextualColors.map((colorName) => getContextualColor(document, colorName));
 }

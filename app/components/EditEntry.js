@@ -4,20 +4,7 @@ import QRCodeReader from '@Components/QRCodeReader';
 import { secretPattern } from '@Lib/otp';
 import { TwitterPicker } from 'react-color';
 import { SKAlert } from 'sn-stylekit';
-import { contextualColors, defaultBgColor } from '@Lib/utils';
-
-const defaultColorOptions = [
-  '#FF794D',
-  '#E9A900',
-  '#33BE86',
-  '#91B73D',
-  '#658bdb',
-  '#4CBBFC',
-  '#8D9FAE',
-  '#EF5276',
-  '#FF7C7C',
-  '#9B7ECF'
-];
+import { contextualColors, getAllContextualColors, getEntryColor } from '@Lib/utils';
 
 export default class EditEntry extends React.Component {
   static defaultProps = {
@@ -55,15 +42,6 @@ export default class EditEntry extends React.Component {
       entry: {
         ...state.entry,
         [name]: value
-      }
-    }));
-  };
-
-  handleColorChange = color => {
-    this.setState(state => ({
-      entry: {
-        ...state.entry,
-        color: color.hex
       }
     }));
   };
@@ -119,24 +97,6 @@ export default class EditEntry extends React.Component {
     });
   };
 
-  onThemeColorChange = (event) => {
-    this.setState(state => ({
-      entry: {
-        ...state.entry,
-        themeColor: event.target.value
-      }
-    }));
-  }
-
-  removeThemeColor = () => {
-    this.setState((state) => {
-      delete state.entry.themeColor;
-      return {
-        entry: state.entry
-      };
-    });
-  };
-
   render() {
     const { id, entry, showColorPicker, qrCodeError } = this.state;
 
@@ -156,16 +116,40 @@ export default class EditEntry extends React.Component {
       qrCodeAlert.present();
     }
 
+    const entryColor = getEntryColor(document, entry);
     const swatchStyle = {
       width: '36px',
       height: '14px',
       borderRadius: '2px',
-      background: `${entry.color ?? defaultBgColor}`,
+      background: `${entryColor}`,
     };
 
-    const hasThemeColor = !!entry.themeColor;
-    const hasCustomColor = !!entry.color;
-    const selectedThemeColor = entry.themeColor;
+    const themeColors = getAllContextualColors(document);
+    const defaultColorOptions = [
+      ...themeColors,
+      '#658bdb',
+      '#4CBBFC',
+      '#FF794D',
+      '#EF5276',
+      '#91B73D',
+      '#9B7ECF'
+    ];
+
+    const handleColorChange = (color) => {
+      let selectedColor = color.hex.toUpperCase();
+      const colorIndex = defaultColorOptions.indexOf(selectedColor);
+
+      if (colorIndex > -1 && colorIndex <= themeColors.length - 1) {
+        selectedColor = contextualColors[colorIndex];
+      }
+
+      this.setState(state => ({
+        entry: {
+          ...state.entry,
+          color: selectedColor
+        }
+      }));
+    };
 
     return (
       <div className="auth-edit sk-panel">
@@ -180,6 +164,16 @@ export default class EditEntry extends React.Component {
                     onError={this.onQRCodeError}
                   />
                 )}
+                <>
+                  {entryColor && (
+                    <div className="sk-button danger" onClick={this.removeColor}>
+                      <div className="sk-label">Clear color</div>
+                    </div>
+                  )}
+                  <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
+                    <div style={swatchStyle} />
+                  </div>
+                </>
               </div>
             </div>
             <form onSubmit={this.onSave} autoComplete="off">
@@ -227,58 +221,15 @@ export default class EditEntry extends React.Component {
                   onChange={this.handleInputChange}
                   type="text"
                 />
-                {!hasCustomColor && (
-                  <>
-                    <p>Theme colors:</p>
-                    <div className="sk-input-group">
-                      {contextualColors.map((color) => {
-                        return (
-                          <>
-                            <input
-                              key={`${color}-color`}
-                              type="radio"
-                              value={color}
-                              onChange={this.onThemeColorChange}
-                              checked={selectedThemeColor === color}
-                            />
-                            {color}
-                          </>
-                        );
-                      })}
-                    </div>
-                    {entry.themeColor && (
-                      <div className="clear-theme-color-container">
-                        <div className="sk-button danger" onClick={this.removeThemeColor}>
-                          <div className="sk-label">Clear color</div>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-                {!hasThemeColor && (
-                  <>
-                    <p>Custom color:</p>
-                    <div className="color-picker-section">
-                      <div className="color-picker-swatch" onClick={this.handleSwatchClick}>
-                        <div style={swatchStyle} />
-                      </div>
-                      {entry.color && (
-                        <div className="sk-button danger" onClick={this.removeColor}>
-                          <div className="sk-label">Clear color</div>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
               </div>
               {showColorPicker && (
                 <div className="color-picker-popover">
                   <div className="color-picker-cover" onClick={this.handleColorPickerClose} />
                   <TwitterPicker
-                    color={entry.color ?? defaultBgColor}
+                    color={entryColor}
                     colors={defaultColorOptions}
-                    onChangeComplete={this.handleColorChange}
-                    triangle="top-left"
+                    onChangeComplete={handleColorChange}
+                    triangle="top-right"
                   />
                 </div>
               )}
