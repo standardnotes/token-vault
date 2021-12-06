@@ -41,6 +41,7 @@
     "sass-loader": "^11.0.1",
     "sn-stylekit": "2.1.0",
     "style-loader": "~0.13.1",
+    "svg-url-loader": "^7.1.1",
     "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
