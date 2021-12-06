@@ -230,6 +230,15 @@ export default class EditEntry extends React.Component {
                     colors={defaultColorOptions}
                     onChangeComplete={handleColorChange}
                     triangle="top-right"
+                    onSwatchHover={(color, event) => {
+                      const hoveredColor = color.hex.toUpperCase();
+                      if (themeColors.includes(hoveredColor)) {
+                        event.target.setAttribute(
+                          'title',
+                          'This color will change depending on your active theme.'
+                        );
+                      }
+                    }}
                   />
                 </div>
               )}
