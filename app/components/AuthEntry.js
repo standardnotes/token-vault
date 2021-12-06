@@ -41,9 +41,7 @@ export default class AuthEntry extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.updateEntryStyle();
-    }, 200);
+    this.updateEntryStyle();
   }
 
   componentDidUpdate(prevProps) {
@@ -54,9 +52,7 @@ export default class AuthEntry extends React.Component {
     }
 
     if (prevProps.lastUpdated !== this.props.lastUpdated) {
-      setTimeout(() => {
-        this.updateEntryStyle();
-      }, 200);
+      this.updateEntryStyle();
     }
   }
 
@@ -86,23 +82,31 @@ export default class AuthEntry extends React.Component {
   }
 
   updateEntryStyle = () => {
-    const { entryStyle } = this.state;
-    const entryColor = getEntryColor(document, this.props.entry);
+    /**
+     * A short amount of time to wait in order to prevent reading 
+     * stale information from the DOM after a theme is activated.
+     */
+    const DELAY_BEFORE_READING_PROPERTIES = 250;
 
-    if (entryColor) {
-      // The background color for the entry.
-      entryStyle.backgroundColor = entryColor;
+    setTimeout(() => {
+      const { entryStyle } = this.state;
+      const entryColor = getEntryColor(document, this.props.entry);
 
-      const rgbColor = hexColorToRGB(entryColor);
-      const varColor = getVarColorForContrast(rgbColor);
+      if (entryColor) {
+        // The background color for the entry.
+        entryStyle.backgroundColor = entryColor;
 
-      // The foreground color for the entry.
-      entryStyle.color = `var(${varColor})`;
-    }
+        const rgbColor = hexColorToRGB(entryColor);
+        const varColor = getVarColorForContrast(rgbColor);
 
-    this.setState({
-      entryStyle
-    });
+        // The foreground color for the entry.
+        entryStyle.color = `var(${varColor})`;
+      }
+
+      this.setState({
+        entryStyle
+      });
+    }, DELAY_BEFORE_READING_PROPERTIES);
   }
 
   render() {
