@@ -412,6 +412,6 @@ html {
 div.twitter-picker > div:nth-child(3) > span:nth-child(-n+4) > div {
   background-image: url('../assets/svg/palette.svg') !important;
   background-repeat: no-repeat !important;
-  background-position-x: right !important;
-  background-position-y: down !important;
+  background-position: top 4px right 4px !important;
+  background-size: 12px 12px !important;
 }
