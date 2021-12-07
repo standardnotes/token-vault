@@ -41,7 +41,7 @@ export default class AuthEntry extends React.Component {
   }
 
   componentDidMount() {
-    this.updateEntryStyle(true);
+    this.updateEntryStyle();
   }
 
   componentDidUpdate(prevProps) {
@@ -52,7 +52,7 @@ export default class AuthEntry extends React.Component {
     }
 
     if (prevProps.lastUpdated !== this.props.lastUpdated) {
-      this.updateEntryStyle();
+      this.updateEntryStyle(true);
     }
   }
 
@@ -81,12 +81,12 @@ export default class AuthEntry extends React.Component {
     this.props.onCopyValue();
   }
 
-  updateEntryStyle = (isOnMount = false) => {
+  updateEntryStyle = (useDelay = false) => {
     /**
      * A short amount of time to wait in order to prevent reading 
      * stale information from the DOM after a theme is activated.
      */
-    const DELAY_BEFORE_READING_PROPERTIES = isOnMount ? 0 : 50;
+    const DELAY_BEFORE_READING_PROPERTIES = useDelay ? 0 : 50;
 
     setTimeout(() => {
       const { entryStyle } = this.state;
