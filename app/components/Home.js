@@ -281,7 +281,7 @@ export default class Home extends React.Component {
               />
               {searchValue && (
                 <div onClick={this.clearSearchValue} className="sk-button danger">
-                  <div className="sk-label">X</div>
+                  <div className="sk-label">✕</div>
                 </div>
               )}
             </div>
