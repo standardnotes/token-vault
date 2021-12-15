@@ -5,7 +5,7 @@ import ViewEntries from '@Components/ViewEntries';
 import ConfirmDialog from '@Components/ConfirmDialog';
 import DataErrorAlert from '@Components/DataErrorAlert';
 import EditorKit from '@standardnotes/editor-kit';
-import ReorderIcon from '@Components/ReorderIcon';
+import ReorderIcon from '../assets/svg/reorder-icon.svg';
 
 const initialState = {
   text: '',

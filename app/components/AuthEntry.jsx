@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { totp } from '@Lib/otp';
 import CountdownPie from '@Components/CountdownPie';
 import AuthMenu from '@Components/AuthMenu';
-import DragIndicator from '@Components/DragIndicator';
+import DragIndicator from '../assets/svg/drag-indicator.svg';
 import { getEntryColor, getVarColorForContrast, hexColorToRGB } from '@Lib/utils';
 
 export default class AuthEntry extends React.Component {
